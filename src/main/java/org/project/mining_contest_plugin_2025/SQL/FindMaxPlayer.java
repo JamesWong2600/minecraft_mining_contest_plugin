@@ -26,8 +26,6 @@ public class FindMaxPlayer {
             ResultSet rs6 = stmt6.executeQuery("select * from datafile order by point desc limit 5 , 1");
             ResultSet rs7 = stmt7.executeQuery("select * from datafile order by point desc limit 6 , 1");
             ResultSet rs8 = stmt8.executeQuery("select * from datafile order by point desc limit 7 , 1");
-            ResultSet rs9 = stmt9.executeQuery("select * from datafile order by point desc limit 8 , 1");
-            ResultSet rs10 = stmt10.executeQuery("select * from datafile order by point desc limit 9 , 1");
         ) {
             rs1.next();
             ranking[0] = rs1.getString("player");

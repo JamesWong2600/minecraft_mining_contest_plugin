@@ -10,7 +10,9 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.project.mining_contest_plugin_2025.Mining_contest_plugin_2025;
 import org.project.mining_contest_plugin_2025.SCOREBOARD.setscore;
 import org.project.mining_contest_plugin_2025.SQL.FindMaxPlayer;
+import org.project.mining_contest_plugin_2025.SQL.SQLcollection;
 
+import java.sql.*;
 import java.util.Map;
 
 import static org.project.mining_contest_plugin_2025.Mining_contest_plugin_2025.*;
@@ -54,10 +56,24 @@ public class flow {
         if (timer == 0 && end == 0) {
             String[] ranking = FindMaxPlayer.MaxPlayer();
             for (Player all : Bukkit.getServer().getOnlinePlayers()) {
-                all.setGameMode(GameMode.SPECTATOR);
-                all.sendTitle(ChatColor.GREEN + "冠軍", ranking[0] + " 得分= " + ranking[1], 4, 80, 4);
-                all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
-            }
+                String[] SQLDATA = SQLcollection.SQL();
+                if(all.isOp()){
+                    all.sendTitle(ChatColor.GREEN + "比賽已經結束",ChatColor.YELLOW +"請等待主辦方公佈排名", 4, 150, 4);
+                }
+                else if(all.getGameMode().equals(GameMode.SURVIVAL)){
+                try(Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select point from datafile where uuid = '"+all.getUniqueId()+"'");
+                ) {
+                    rs.next();
+                    int point = rs.getInt("point");
+                    all.sendTitle(ChatColor.GREEN + "你的最終得分= " + point , ChatColor.YELLOW +"請等待主辦方公佈排名", 4, 150, 4);
+                    all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
+                    all.setGameMode(GameMode.SPECTATOR);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                }
             end = 1;
         }
-}}
+}}}
