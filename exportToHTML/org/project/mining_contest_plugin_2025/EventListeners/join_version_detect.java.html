@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>join_version_detect.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+join_version_detect.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">EventListeners</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">Bukkit</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Player</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">EventHandler</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">Listener</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">PlayerJoinEvent</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">lang</span><span class="s2">.</span><span class="s1">reflect</span><span class="s2">.</span><span class="s1">Method</span><span class="s2">;</span>
+
+<span class="s0">import static </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">Bukkit</span><span class="s2">.</span><span class="s1">getServer</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">join_version_detect </span><span class="s0">implements </span><span class="s1">Listener </span><span class="s2">{</span>
+
+    <span class="s0">private </span><span class="s1">Mining_contest_plugin_2025 plugin</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">join_version_detect</span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025 plugin</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">plugin </span><span class="s2">= </span><span class="s1">plugin</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@EventHandler</span>
+    <span class="s0">public void </span><span class="s1">onPlayerJoin</span><span class="s2">(</span><span class="s1">PlayerJoinEvent event</span><span class="s2">) {</span>
+        <span class="s1">String playerName </span><span class="s2">= </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getPlayer</span><span class="s2">().</span><span class="s1">getName</span><span class="s2">();</span>
+        <span class="s1">String version </span><span class="s2">= </span><span class="s1">getPlayerClientVersion</span><span class="s2">(</span><span class="s1">event</span><span class="s2">.</span><span class="s1">getPlayer</span><span class="s2">().</span><span class="s1">getUniqueId</span><span class="s2">().</span><span class="s1">toString</span><span class="s2">());</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">version</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">version </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s1">event</span><span class="s2">.</span><span class="s1">getPlayer</span><span class="s2">().</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s3">&quot;Your client version is: &quot; </span><span class="s2">+ </span><span class="s1">version</span><span class="s2">);</span>
+            <span class="s4">// Check for mobile version (e.g., Bedrock)</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">version</span><span class="s2">.</span><span class="s1">startsWith</span><span class="s2">(</span><span class="s3">&quot;1.19&quot;</span><span class="s2">) || </span><span class="s1">version</span><span class="s2">.</span><span class="s1">startsWith</span><span class="s2">(</span><span class="s3">&quot;1.20&quot;</span><span class="s2">)) {</span>
+                <span class="s1">event</span><span class="s2">.</span><span class="s1">getPlayer</span><span class="s2">().</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s3">&quot;You are likely using the Bedrock Edition (Mobile).&quot;</span><span class="s2">);</span>
+            <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                <span class="s1">event</span><span class="s2">.</span><span class="s1">getPlayer</span><span class="s2">().</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s3">&quot;You are likely using the Java Edition (Desktop).&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+            <span class="s1">event</span><span class="s2">.</span><span class="s1">getPlayer</span><span class="s2">().</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s3">&quot;Could not determine your client version.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getPlayerClientVersion</span><span class="s2">(</span><span class="s1">String uuid</span><span class="s2">) {</span>
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s1">Object player </span><span class="s2">= </span><span class="s1">getServer</span><span class="s2">().</span><span class="s1">getPlayer</span><span class="s2">(</span><span class="s1">uuid</span><span class="s2">).</span><span class="s1">getClass</span><span class="s2">().</span><span class="s1">getMethod</span><span class="s2">(</span><span class="s3">&quot;getHandle&quot;</span><span class="s2">).</span><span class="s1">invoke</span><span class="s2">(</span><span class="s1">getServer</span><span class="s2">().</span><span class="s1">getPlayer</span><span class="s2">(</span><span class="s1">uuid</span><span class="s2">));</span>
+            <span class="s1">Method getPlayerConnection </span><span class="s2">= </span><span class="s1">player</span><span class="s2">.</span><span class="s1">getClass</span><span class="s2">().</span><span class="s1">getDeclaredMethod</span><span class="s2">(</span><span class="s3">&quot;getPlayerConnection&quot;</span><span class="s2">);</span>
+            <span class="s1">Object connection </span><span class="s2">= </span><span class="s1">getPlayerConnection</span><span class="s2">.</span><span class="s1">invoke</span><span class="s2">(</span><span class="s1">player</span><span class="s2">);</span>
+            <span class="s1">Method getVersion </span><span class="s2">= </span><span class="s1">connection</span><span class="s2">.</span><span class="s1">getClass</span><span class="s2">().</span><span class="s1">getDeclaredMethod</span><span class="s2">(</span><span class="s3">&quot;getVersion&quot;</span><span class="s2">);</span>
+            <span class="s0">return </span><span class="s1">getVersion</span><span class="s2">.</span><span class="s1">invoke</span><span class="s2">(</span><span class="s1">connection</span><span class="s2">).</span><span class="s1">toString</span><span class="s2">(); </span><span class="s4">// Adjust method name as needed</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+            <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+            <span class="s0">return null</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

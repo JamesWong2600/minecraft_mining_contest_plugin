@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>NoDamage.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #2aacb8;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+NoDamage.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">EventListeners</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">Bukkit</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Arrow</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Player</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SpectralArrow</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">EventHandler</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">Listener</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">EntityDamageByEntityEvent</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">SQL</span><span class="s2">.</span><span class="s1">SQLcollection</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">sql</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">UUID</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">NoDamage </span><span class="s0">implements </span><span class="s1">Listener </span><span class="s2">{</span>
+
+
+    <span class="s1">@EventHandler</span>
+    <span class="s0">public void </span><span class="s1">onEntityDamage</span><span class="s2">(</span><span class="s1">EntityDamageByEntityEvent event</span><span class="s2">) {</span>
+       <span class="s3">// if(!(Mine2024.status==2)){</span>
+       <span class="s3">//     if (event.getDamager() instanceof Player) {</span>
+       <span class="s3">//         Player victim = (Player) event.getEntity();</span>
+        <span class="s3">//        victim.setHealth(20);</span>
+      <span class="s3">//      }</span>
+      <span class="s3">//  }</span>
+      <span class="s3">//  else{</span>
+        <span class="s0">if</span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">status</span><span class="s2">==</span><span class="s4">1</span><span class="s2">) {</span>
+            <span class="s1">String</span><span class="s2">[] </span><span class="s1">SQLDATA </span><span class="s2">= </span><span class="s1">SQLcollection</span><span class="s2">.</span><span class="s1">SQL</span><span class="s2">();</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Player</span><span class="s2">){</span>
+            <span class="s1">Player p </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getEntity</span><span class="s2">();</span>
+            <span class="s1">Player d </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">();</span>
+            <span class="s1">UUID UUid </span><span class="s2">= </span><span class="s1">p</span><span class="s2">.</span><span class="s1">getUniqueId</span><span class="s2">();</span>
+            <span class="s1">String uid </span><span class="s2">= </span><span class="s1">String</span><span class="s2">.</span><span class="s1">valueOf</span><span class="s2">(</span><span class="s1">UUid</span><span class="s2">);</span>
+            <span class="s1">UUID dUUid </span><span class="s2">= </span><span class="s1">d</span><span class="s2">.</span><span class="s1">getUniqueId</span><span class="s2">();</span>
+            <span class="s1">String duid </span><span class="s2">= </span><span class="s1">String</span><span class="s2">.</span><span class="s1">valueOf</span><span class="s2">(</span><span class="s1">dUUid</span><span class="s2">);</span>
+            <span class="s0">try </span><span class="s2">(</span><span class="s1">Connection conn </span><span class="s2">= </span><span class="s1">DriverManager</span><span class="s2">.</span><span class="s1">getConnection</span><span class="s2">(</span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s4">1</span><span class="s2">], </span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s4">2</span><span class="s2">], </span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s4">3</span><span class="s2">]);</span>
+                 <span class="s1">Statement stmt </span><span class="s2">= </span><span class="s1">conn</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+                 <span class="s1">Statement stmt2 </span><span class="s2">= </span><span class="s1">conn</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+                 <span class="s1">Statement stmt3 </span><span class="s2">= </span><span class="s1">conn</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+                 <span class="s1">ResultSet rs </span><span class="s2">= </span><span class="s1">stmt2</span><span class="s2">.</span><span class="s1">executeQuery</span><span class="s2">(</span><span class="s5">&quot;select * from datafile WHERE UUID in ('&quot;</span><span class="s2">+</span><span class="s1">uid</span><span class="s2">+</span><span class="s5">&quot;')&quot;</span><span class="s2">);</span>
+                 <span class="s1">ResultSet rss </span><span class="s2">= </span><span class="s1">stmt3</span><span class="s2">.</span><span class="s1">executeQuery</span><span class="s2">(</span><span class="s5">&quot;select * from datafile WHERE UUID in ('&quot;</span><span class="s2">+</span><span class="s1">duid</span><span class="s2">+</span><span class="s5">&quot;')&quot;</span><span class="s2">);</span>
+            <span class="s2">) {</span>
+                <span class="s1">rs</span><span class="s2">.</span><span class="s1">next</span><span class="s2">();</span>
+                <span class="s1">rss</span><span class="s2">.</span><span class="s1">next</span><span class="s2">();</span>
+                <span class="s0">int </span><span class="s1">pvpmode </span><span class="s2">= </span><span class="s1">rs</span><span class="s2">.</span><span class="s1">getInt</span><span class="s2">(</span><span class="s5">&quot;pvpmode&quot;</span><span class="s2">);</span>
+                <span class="s0">int </span><span class="s1">dpvpmode </span><span class="s2">= </span><span class="s1">rss</span><span class="s2">.</span><span class="s1">getInt</span><span class="s2">(</span><span class="s5">&quot;pvpmode&quot;</span><span class="s2">);</span>
+                <span class="s1">conn</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+                <span class="s0">if</span><span class="s2">((</span><span class="s1">pvpmode</span><span class="s2">==</span><span class="s4">0</span><span class="s2">)&amp;&amp;((</span><span class="s1">dpvpmode</span><span class="s2">==</span><span class="s4">0</span><span class="s2">))){</span>
+                    <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                    <span class="s1">d</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;你們兩個沒有開啓PVP模式&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">((</span><span class="s1">pvpmode</span><span class="s2">==</span><span class="s4">0</span><span class="s2">)&amp;&amp;(</span><span class="s1">dpvpmode</span><span class="s2">==</span><span class="s4">1</span><span class="s2">)){</span>
+                    <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                    <span class="s1">d</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;該玩家沒有開啓PVP模式&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">((</span><span class="s1">dpvpmode</span><span class="s2">==</span><span class="s4">0</span><span class="s2">)&amp;&amp;(</span><span class="s1">pvpmode</span><span class="s2">==</span><span class="s4">1</span><span class="s2">)){</span>
+                    <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                    <span class="s1">d</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;你沒有開啓PVP模式&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">SQLException e</span><span class="s2">) {</span>
+                <span class="s0">throw new </span><span class="s1">RuntimeException</span><span class="s2">(</span><span class="s1">e</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">else if</span><span class="s2">(</span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Arrow</span><span class="s2">){</span>
+                <span class="s1">Player p </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getEntity</span><span class="s2">();</span>
+                <span class="s1">UUID UUid </span><span class="s2">= </span><span class="s1">p</span><span class="s2">.</span><span class="s1">getUniqueId</span><span class="s2">();</span>
+                <span class="s1">String uid </span><span class="s2">= </span><span class="s1">String</span><span class="s2">.</span><span class="s1">valueOf</span><span class="s2">(</span><span class="s1">UUid</span><span class="s2">);</span>
+                <span class="s1">Arrow arrow </span><span class="s2">= (</span><span class="s1">Arrow</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">();</span>
+                <span class="s1">Player aa </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">arrow</span><span class="s2">.</span><span class="s1">getShooter</span><span class="s2">();</span>
+                <span class="s1">UUID aaUUid </span><span class="s2">= </span><span class="s1">aa</span><span class="s2">.</span><span class="s1">getUniqueId</span><span class="s2">();</span>
+                <span class="s1">String aauid </span><span class="s2">= </span><span class="s1">String</span><span class="s2">.</span><span class="s1">valueOf</span><span class="s2">(</span><span class="s1">aaUUid</span><span class="s2">);</span>
+            <span class="s0">try </span><span class="s2">(</span><span class="s1">Connection conn </span><span class="s2">= </span><span class="s1">DriverManager</span><span class="s2">.</span><span class="s1">getConnection</span><span class="s2">(</span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s4">1</span><span class="s2">], </span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s4">2</span><span class="s2">], </span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s4">3</span><span class="s2">]);</span>
+                 <span class="s1">Statement stmt </span><span class="s2">= </span><span class="s1">conn</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+                 <span class="s1">Statement stmt2 </span><span class="s2">= </span><span class="s1">conn</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+                 <span class="s1">Statement stmt3 </span><span class="s2">= </span><span class="s1">conn</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+                 <span class="s1">ResultSet rss </span><span class="s2">= </span><span class="s1">stmt</span><span class="s2">.</span><span class="s1">executeQuery</span><span class="s2">(</span><span class="s5">&quot;select * from datafile WHERE UUID in ('&quot;</span><span class="s2">+</span><span class="s1">aauid</span><span class="s2">+</span><span class="s5">&quot;')&quot;</span><span class="s2">);</span>
+                 <span class="s1">ResultSet rs </span><span class="s2">= </span><span class="s1">stmt2</span><span class="s2">.</span><span class="s1">executeQuery</span><span class="s2">(</span><span class="s5">&quot;select * from datafile WHERE UUID in ('&quot;</span><span class="s2">+</span><span class="s1">uid</span><span class="s2">+</span><span class="s5">&quot;')&quot;</span><span class="s2">);</span>
+            <span class="s2">) {</span>
+                <span class="s1">rs</span><span class="s2">.</span><span class="s1">next</span><span class="s2">();</span>
+                <span class="s1">rss</span><span class="s2">.</span><span class="s1">next</span><span class="s2">();</span>
+                <span class="s0">int </span><span class="s1">pvpmode </span><span class="s2">= </span><span class="s1">rs</span><span class="s2">.</span><span class="s1">getInt</span><span class="s2">(</span><span class="s5">&quot;pvpmode&quot;</span><span class="s2">);</span>
+                <span class="s0">int </span><span class="s1">dpvpmode </span><span class="s2">= </span><span class="s1">rss</span><span class="s2">.</span><span class="s1">getInt</span><span class="s2">(</span><span class="s5">&quot;pvpmode&quot;</span><span class="s2">);</span>
+                <span class="s1">conn</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+                <span class="s0">if</span><span class="s2">((</span><span class="s1">pvpmode</span><span class="s2">==</span><span class="s4">0</span><span class="s2">)&amp;&amp;((</span><span class="s1">dpvpmode</span><span class="s2">==</span><span class="s4">0</span><span class="s2">))){</span>
+                    <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                    <span class="s1">aa</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;你們兩個沒有開啓PVP模式&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">((</span><span class="s1">pvpmode</span><span class="s2">==</span><span class="s4">0</span><span class="s2">)&amp;&amp;(</span><span class="s1">dpvpmode</span><span class="s2">==</span><span class="s4">1</span><span class="s2">)){</span>
+                    <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                    <span class="s1">aa</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;該玩家沒有開啓PVP模式&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">((</span><span class="s1">dpvpmode</span><span class="s2">==</span><span class="s4">0</span><span class="s2">)&amp;&amp;(</span><span class="s1">pvpmode</span><span class="s2">==</span><span class="s4">1</span><span class="s2">)){</span>
+                    <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                    <span class="s1">aa</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;你沒有開啓PVP模式&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">SQLException e</span><span class="s2">) {</span>
+                <span class="s0">throw new </span><span class="s1">RuntimeException</span><span class="s2">(</span><span class="s1">e</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s2">}</span>
+
+        <span class="s2">}</span>
+        <span class="s0">if</span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">status</span><span class="s2">==</span><span class="s4">2</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">((</span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Player </span><span class="s2">&amp;&amp; </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getEntity</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Player</span><span class="s2">)) {</span>
+            <span class="s1">Player damager </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">();</span>
+            <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+            <span class="s1">damager</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;比賽期間不允許傷害其他玩家&quot;</span><span class="s2">);</span>
+          <span class="s2">}</span>
+            <span class="s0">else if </span><span class="s2">(</span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Arrow </span><span class="s2">&amp;&amp; </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getEntity</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Player</span><span class="s2">) {</span>
+                <span class="s1">Arrow arrow </span><span class="s2">= (</span><span class="s1">Arrow</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">();</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">arrow</span><span class="s2">.</span><span class="s1">getShooter</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Player</span><span class="s2">){</span>
+                <span class="s1">Player aa </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">arrow</span><span class="s2">.</span><span class="s1">getShooter</span><span class="s2">();</span>
+                <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                <span class="s1">aa</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;比賽期間不允許傷害其他玩家&quot;</span><span class="s2">);</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">else if </span><span class="s2">(</span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">SpectralArrow </span><span class="s2">&amp;&amp; </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getEntity</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Player</span><span class="s2">) {</span>
+                <span class="s1">SpectralArrow arrow </span><span class="s2">= (</span><span class="s1">SpectralArrow</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">();</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">arrow</span><span class="s2">.</span><span class="s1">getShooter</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Player</span><span class="s2">){</span>
+                <span class="s1">Player aa </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">arrow</span><span class="s2">.</span><span class="s1">getShooter</span><span class="s2">();</span>
+                <span class="s1">event</span><span class="s2">.</span><span class="s1">setCancelled</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                <span class="s1">aa</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s5">&quot;比賽期間不允許傷害其他玩家&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>lobbyGetPlayerInf.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+lobbyGetPlayerInf.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">EventListeners</span><span class="s2">;</span>
+
+
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Player</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">EventHandler</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">Listener</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">PlayerJoinEvent</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">inventory</span><span class="s2">.</span><span class="s1">ItemStack</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">potion</span><span class="s2">.</span><span class="s1">PotionEffect</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">potion</span><span class="s2">.</span><span class="s1">PotionEffectType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">scheduler</span><span class="s2">.</span><span class="s1">BukkitRunnable</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">SQL</span><span class="s2">.</span><span class="s1">SQLcollection</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">sql</span><span class="s2">.</span><span class="s1">Connection</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">sql</span><span class="s2">.</span><span class="s1">DriverManager</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">sql</span><span class="s2">.</span><span class="s1">SQLException</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">sql</span><span class="s2">.</span><span class="s1">Statement</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Random</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">UUID</span><span class="s2">;</span>
+
+
+
+<span class="s0">public class </span><span class="s1">lobbyGetPlayerInf </span><span class="s0">implements </span><span class="s1">Listener</span><span class="s2">{</span>
+
+    <span class="s0">private </span><span class="s1">Mining_contest_plugin_2025 plugin</span><span class="s2">;</span>
+
+
+
+    <span class="s0">public </span><span class="s1">lobbyGetPlayerInf</span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025 plugin</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">plugin </span><span class="s2">= </span><span class="s1">plugin</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+
+      <span class="s1">@EventHandler</span>
+      <span class="s0">public void </span><span class="s1">FirstJoinID</span><span class="s2">(</span><span class="s1">PlayerJoinEvent e</span><span class="s2">) {</span>
+          <span class="s1">Player p </span><span class="s2">= </span><span class="s1">e</span><span class="s2">.</span><span class="s1">getPlayer</span><span class="s2">();</span>
+          <span class="s1">String name </span><span class="s2">= </span><span class="s1">p</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">();</span>
+          <span class="s1">UUID UUid </span><span class="s2">= </span><span class="s1">p</span><span class="s2">.</span><span class="s1">getUniqueId</span><span class="s2">();</span>
+          <span class="s1">String</span><span class="s2">[] </span><span class="s1">SQLDATA </span><span class="s2">= </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">SQL</span><span class="s2">.</span><span class="s1">SQLcollection</span><span class="s2">.</span><span class="s1">SQL</span><span class="s2">();</span>
+          <span class="s0">final </span><span class="s1">BukkitRunnable runnable1 </span><span class="s2">= </span><span class="s0">new </span><span class="s1">BukkitRunnable</span><span class="s2">() {</span>
+              <span class="s0">public void </span><span class="s1">run</span><span class="s2">() {</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">setGameMode</span><span class="s2">(</span><span class="s1">GameMode</span><span class="s2">.</span><span class="s1">ADVENTURE</span><span class="s2">);</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">playSound</span><span class="s2">(</span><span class="s1">p</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">(), </span><span class="s1">Sound</span><span class="s2">.</span><span class="s1">ENTITY_EXPERIENCE_ORB_PICKUP</span><span class="s2">, </span><span class="s3">20</span><span class="s2">, </span><span class="s3">1</span><span class="s2">);</span>
+              <span class="s2">}};</span>
+          <span class="s0">final </span><span class="s1">BukkitRunnable runnable2 </span><span class="s2">= </span><span class="s0">new </span><span class="s1">BukkitRunnable</span><span class="s2">() {</span>
+              <span class="s0">public void </span><span class="s1">run</span><span class="s2">() {</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">setGameMode</span><span class="s2">(</span><span class="s1">GameMode</span><span class="s2">.</span><span class="s1">SPECTATOR</span><span class="s2">);</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">playSound</span><span class="s2">(</span><span class="s1">p</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">(), </span><span class="s1">Sound</span><span class="s2">.</span><span class="s1">ENTITY_EXPERIENCE_ORB_PICKUP</span><span class="s2">, </span><span class="s3">20</span><span class="s2">, </span><span class="s3">1</span><span class="s2">);</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">addPotionEffect</span><span class="s2">(</span><span class="s0">new </span><span class="s1">PotionEffect</span><span class="s2">(</span><span class="s1">PotionEffectType</span><span class="s2">.</span><span class="s1">NIGHT_VISION</span><span class="s2">, </span><span class="s3">1000000</span><span class="s2">, </span><span class="s3">3</span><span class="s2">));</span>
+                  <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;op&quot;</span><span class="s2">);</span>
+              <span class="s2">}};</span>
+      <span class="s0">if</span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">status</span><span class="s2">==</span><span class="s3">1</span><span class="s2">){</span>
+          <span class="s0">if</span><span class="s2">(!</span><span class="s1">p</span><span class="s2">.</span><span class="s1">hasPlayedBefore</span><span class="s2">()){</span>
+              <span class="s0">if</span><span class="s2">(!</span><span class="s1">p</span><span class="s2">.</span><span class="s1">isOp</span><span class="s2">()) {</span>
+                  <span class="s0">try </span><span class="s2">(</span><span class="s1">Connection conn </span><span class="s2">= </span><span class="s1">DriverManager</span><span class="s2">.</span><span class="s1">getConnection</span><span class="s2">(</span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s3">1</span><span class="s2">], </span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s3">2</span><span class="s2">], </span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s3">3</span><span class="s2">]);</span>
+                       <span class="s1">Statement stmt </span><span class="s2">= </span><span class="s1">conn</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+                  <span class="s2">) {</span>
+                      <span class="s1">String creditrecord </span><span class="s2">= </span><span class="s4">&quot;INSERT INTO &quot; </span><span class="s2">+</span>
+                              <span class="s4">&quot;datafile(id, player, UUID, point, tp, pvppoint, pvpmode) &quot; </span><span class="s2">+</span>
+                              <span class="s4">&quot;SELECT MAX(id) + 1 ,'&quot; </span><span class="s2">+ </span><span class="s1">name </span><span class="s2">+ </span><span class="s4">&quot;', '&quot; </span><span class="s2">+ </span><span class="s1">UUid </span><span class="s2">+ </span><span class="s4">&quot;','&quot; </span><span class="s2">+ </span><span class="s3">0 </span><span class="s2">+ </span><span class="s4">&quot;','&quot; </span><span class="s2">+ </span><span class="s3">0 </span><span class="s2">+ </span><span class="s4">&quot;','&quot; </span><span class="s2">+ </span><span class="s3">0 </span><span class="s2">+ </span><span class="s4">&quot;','&quot; </span><span class="s2">+ </span><span class="s3">0 </span><span class="s2">+ </span><span class="s4">&quot;' FROM datafile&quot;</span><span class="s2">;</span>
+                      <span class="s1">stmt</span><span class="s2">.</span><span class="s1">executeUpdate</span><span class="s2">(</span><span class="s1">creditrecord</span><span class="s2">);</span>
+                  <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">SQLException e1</span><span class="s2">) {</span>
+                      <span class="s0">try </span><span class="s2">(</span><span class="s1">Connection conn </span><span class="s2">= </span><span class="s1">DriverManager</span><span class="s2">.</span><span class="s1">getConnection</span><span class="s2">(</span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s3">1</span><span class="s2">], </span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s3">2</span><span class="s2">], </span><span class="s1">SQLDATA</span><span class="s2">[</span><span class="s3">3</span><span class="s2">]);</span>
+                           <span class="s1">Statement stmt </span><span class="s2">= </span><span class="s1">conn</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+                      <span class="s2">) {</span>
+                          <span class="s1">String creditrecord </span><span class="s2">= </span><span class="s4">&quot;INSERT INTO datafile VALUES (1, '&quot; </span><span class="s2">+ </span><span class="s1">name </span><span class="s2">+ </span><span class="s4">&quot;', '&quot; </span><span class="s2">+ </span><span class="s1">UUid </span><span class="s2">+ </span><span class="s4">&quot;','&quot; </span><span class="s2">+ </span><span class="s3">0 </span><span class="s2">+ </span><span class="s4">&quot;','&quot; </span><span class="s2">+ </span><span class="s3">0 </span><span class="s2">+ </span><span class="s4">&quot;','&quot; </span><span class="s2">+ </span><span class="s3">0 </span><span class="s2">+ </span><span class="s4">&quot;','&quot; </span><span class="s2">+ </span><span class="s3">0 </span><span class="s2">+ </span><span class="s4">&quot;')&quot;</span><span class="s2">;</span>
+                          <span class="s1">stmt</span><span class="s2">.</span><span class="s1">executeUpdate</span><span class="s2">(</span><span class="s1">creditrecord</span><span class="s2">);</span>
+
+                      <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">SQLException e2</span><span class="s2">) {</span>
+                          <span class="s1">e2</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+                      <span class="s2">}</span>
+                  <span class="s2">}</span>
+
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">addPotionEffect</span><span class="s2">(</span><span class="s0">new </span><span class="s1">PotionEffect</span><span class="s2">(</span><span class="s1">PotionEffectType</span><span class="s2">.</span><span class="s1">SATURATION</span><span class="s2">, </span><span class="s3">1000000</span><span class="s2">, </span><span class="s3">10</span><span class="s2">));</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">addPotionEffect</span><span class="s2">(</span><span class="s0">new </span><span class="s1">PotionEffect</span><span class="s2">(</span><span class="s1">PotionEffectType</span><span class="s2">.</span><span class="s1">NIGHT_VISION</span><span class="s2">, </span><span class="s3">1000000</span><span class="s2">, </span><span class="s3">3</span><span class="s2">));</span>
+                  <span class="s5">//p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 1000000, 10));</span>
+                  <span class="s1">Random random </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Random</span><span class="s2">();</span>
+                  <span class="s1">World world </span><span class="s2">= </span><span class="s1">Bukkit</span><span class="s2">.</span><span class="s1">getServer</span><span class="s2">().</span><span class="s1">getWorld</span><span class="s2">(</span><span class="s4">&quot;world&quot;</span><span class="s2">);</span>
+                  <span class="s1">Location location </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Location</span><span class="s2">(</span><span class="s1">world</span><span class="s2">, </span><span class="s1">random</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">(-</span><span class="s3">18</span><span class="s2">, </span><span class="s3">18</span><span class="s2">), </span><span class="s3">253</span><span class="s2">, </span><span class="s1">random</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">(-</span><span class="s3">18</span><span class="s2">, </span><span class="s3">18</span><span class="s2">));</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">teleport</span><span class="s2">(</span><span class="s1">location</span><span class="s2">);</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">sendMessage</span><span class="s2">(</span><span class="s1">ChatColor</span><span class="s2">.</span><span class="s1">GREEN</span><span class="s2">+</span><span class="s4">&quot;現階段處於等待階段，玩家可以使用 /enablepvp 指令進行PVP模式，最高得分者可獲得150mycard，PVP模式所得的分數與挖礦比賽所得的分數獨立分開，不想玩可以無需理會這條訊息&quot;</span><span class="s2">);</span>
+                  <span class="s1">p</span><span class="s2">.</span><span class="s1">playSound</span><span class="s2">(</span><span class="s1">p</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">(), </span><span class="s1">Sound</span><span class="s2">.</span><span class="s1">ENTITY_EXPERIENCE_ORB_PICKUP</span><span class="s2">, </span><span class="s3">20</span><span class="s2">, </span><span class="s3">1</span><span class="s2">);</span>
+                  <span class="s1">runnable1</span><span class="s2">.</span><span class="s1">runTaskLater</span><span class="s2">(</span><span class="s1">plugin</span><span class="s2">, </span><span class="s3">8</span><span class="s2">);</span>
+              <span class="s2">}</span><span class="s0">else</span><span class="s2">{</span>
+                  <span class="s1">runnable2</span><span class="s2">.</span><span class="s1">runTaskLater</span><span class="s2">(</span><span class="s1">plugin</span><span class="s2">, </span><span class="s3">5</span><span class="s2">);</span>
+              <span class="s2">}</span>
+
+      <span class="s2">}}</span>
+        <span class="s0">else</span><span class="s2">{</span>
+          <span class="s0">if</span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">status</span><span class="s2">==</span><span class="s3">2</span><span class="s2">){</span>
+            <span class="s0">if</span><span class="s2">(!</span><span class="s1">p</span><span class="s2">.</span><span class="s1">hasPlayedBefore</span><span class="s2">()) {</span>
+                <span class="s1">runnable2</span><span class="s2">.</span><span class="s1">runTaskLater</span><span class="s2">(</span><span class="s1">plugin</span><span class="s2">, </span><span class="s3">5</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s2">}</span>
+          <span class="s0">if</span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">status</span><span class="s2">==</span><span class="s3">3</span><span class="s2">){</span>
+                  <span class="s1">runnable2</span><span class="s2">.</span><span class="s1">runTaskLater</span><span class="s2">(</span><span class="s1">plugin</span><span class="s2">, </span><span class="s3">5</span><span class="s2">);</span>
+          <span class="s2">}}</span>
+    <span class="s2">}}</span>
+
+</pre>
+</body>
+</html>

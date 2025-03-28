@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>sheildblocksound.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+sheildblocksound.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">EventListeners</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">Material</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">Sound</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Arrow</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Player</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Projectile</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">EventHandler</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">Listener</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">EntityDamageByEntityEvent</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">PlayerDropItemEvent</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">inventory</span><span class="s2">.</span><span class="s1">Inventory</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">inventory</span><span class="s2">.</span><span class="s1">ItemStack</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">bukkit</span><span class="s2">.</span><span class="s1">scheduler</span><span class="s2">.</span><span class="s1">BukkitRunnable</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">project</span><span class="s2">.</span><span class="s1">mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">sheildblocksound </span><span class="s0">implements </span><span class="s1">Listener </span><span class="s2">{</span>
+
+    <span class="s0">private </span><span class="s1">Mining_contest_plugin_2025 plugin</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">sheildblocksound</span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025 plugin</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">plugin </span><span class="s2">= </span><span class="s1">plugin</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@EventHandler</span>
+    <span class="s0">public void </span><span class="s1">onDamage</span><span class="s2">(</span><span class="s1">EntityDamageByEntityEvent event</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">Mining_contest_plugin_2025</span><span class="s2">.</span><span class="s1">status </span><span class="s2">== </span><span class="s3">1</span><span class="s2">) {</span>
+            <span class="s1">Player player </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getEntity</span><span class="s2">();</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">player</span><span class="s2">.</span><span class="s1">isBlocking</span><span class="s2">()) {</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Arrow</span><span class="s2">) {</span>
+                    <span class="s1">Arrow arrow </span><span class="s2">= (</span><span class="s1">Arrow</span><span class="s2">) </span><span class="s1">event</span><span class="s2">.</span><span class="s1">getDamager</span><span class="s2">();</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">arrow</span><span class="s2">.</span><span class="s1">getShooter</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Player</span><span class="s2">) {</span>
+                        <span class="s1">Player d </span><span class="s2">= (</span><span class="s1">Player</span><span class="s2">) </span><span class="s1">arrow</span><span class="s2">.</span><span class="s1">getShooter</span><span class="s2">();</span>
+                        <span class="s1">d</span><span class="s2">.</span><span class="s1">playSound</span><span class="s2">(</span><span class="s1">d</span><span class="s2">.</span><span class="s1">getLocation</span><span class="s2">(), </span><span class="s1">Sound</span><span class="s2">.</span><span class="s1">ENTITY_ITEM_BREAK</span><span class="s2">, </span><span class="s3">20</span><span class="s2">, </span><span class="s3">1</span><span class="s2">);</span>
+                        <span class="s1">player</span><span class="s2">.</span><span class="s1">getInventory</span><span class="s2">().</span><span class="s1">setItemInOffHand</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ItemStack</span><span class="s2">(</span><span class="s1">Material</span><span class="s2">.</span><span class="s1">DIAMOND_SWORD</span><span class="s2">));</span>
+                        <span class="s0">new </span><span class="s1">BukkitRunnable</span><span class="s2">(){</span>
+                            <span class="s0">public void </span><span class="s1">run</span><span class="s2">() {</span>
+                                <span class="s1">player</span><span class="s2">.</span><span class="s1">getInventory</span><span class="s2">().</span><span class="s1">setItemInOffHand</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ItemStack</span><span class="s2">(</span><span class="s1">Material</span><span class="s2">.</span><span class="s1">SHIELD</span><span class="s2">));</span>
+                                <span class="s1">player</span><span class="s2">.</span><span class="s1">setCooldown</span><span class="s2">(</span><span class="s1">Material</span><span class="s2">.</span><span class="s1">SHIELD</span><span class="s2">, </span><span class="s3">100</span><span class="s2">);</span>
+                            <span class="s2">}}.</span><span class="s1">runTaskLater</span><span class="s2">(</span><span class="s1">plugin</span><span class="s2">, </span><span class="s3">5L</span><span class="s2">);</span>
+
+                    <span class="s2">}</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
