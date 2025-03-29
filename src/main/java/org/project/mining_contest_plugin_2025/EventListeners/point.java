@@ -50,7 +50,7 @@ public class point implements Listener {
             if (block.getType() == Material.DIAMOND_ORE || block.getType() == Material.DEEPSLATE_DIAMOND_ORE) {
                 if(possibilty == 15){
                 int min = 35; // 最小值
-                int max = 50; // 最大值
+                int max = 51; // 最大值
                 int randompoint = random.nextInt(min, max);
                 sqldata = "UPDATE datafile " +
                         "SET point = point + "+2*randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -59,7 +59,7 @@ public class point implements Listener {
                 }
                 else{
                 int min = 35; // 最小值
-                int max = 50; // 最大值
+                int max = 51; // 最大值
                 int randompoint = random.nextInt(min, max);
                 sqldata = "UPDATE datafile " +
                         "SET point = point + "+randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -72,7 +72,7 @@ public class point implements Listener {
             if (block.getType() == Material.IRON_ORE || block.getType() == Material.DEEPSLATE_IRON_ORE) {
                 if(possibilty == 15){
                 int min = 3; // 最小值
-                int max = 5; // 最大值
+                int max = 6; // 最大值
                 int randompoint = random.nextInt(min, max);
                 sqldata = "UPDATE datafile " +
                         "SET point = point + "+2*randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -80,7 +80,7 @@ public class point implements Listener {
                 p.sendMessage(ChatColor.GREEN + "(暴擊)鐵礦+"+2*randompoint+"分");
                 }else{
                 int min = 3; // 最小值
-                int max = 5; // 最大值
+                int max = 6; // 最大值
                 int randompoint = random.nextInt(min, max);
                 sqldata = "UPDATE datafile " +
                         "SET point = point + "+randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -92,7 +92,7 @@ public class point implements Listener {
             if (block.getType() == Material.COAL_ORE || block.getType() == Material.DEEPSLATE_COAL_ORE) {
                 if(possibilty == 15){
                 int min = 0; // 最小值
-                int max = 2; // 最大值
+                int max = 3; // 最大值
                 int randompoint = random.nextInt(min, max);
                 sqldata = "UPDATE datafile " +
                         "SET point = point + "+2*randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -100,7 +100,7 @@ public class point implements Listener {
                 p.sendMessage(ChatColor.GREEN + "(暴擊)煤+"+2*randompoint+"分");
                 }else{
                 int min = 0; // 最小值
-                int max = 2; // 最大值
+                int max = 3; // 最大值
                 int randompoint = random.nextInt(min, max);
                 sqldata = "UPDATE datafile " +
                         "SET point = point + "+randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -112,7 +112,7 @@ public class point implements Listener {
             if (block.getType() == Material.REDSTONE_ORE || block.getType() == Material.DEEPSLATE_REDSTONE_ORE) {
                 if(possibilty == 15){
                     int min = 4; // 最小值
-                    int max = 7; // 最大值
+                    int max = 8; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+2*randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -120,7 +120,7 @@ public class point implements Listener {
                     p.sendMessage(ChatColor.GREEN + "(暴擊)紅石+"+2*randompoint+"分");
                 }else{
                     int min = 4; // 最小值
-                    int max = 7; // 最大值
+                    int max = 8; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -132,7 +132,7 @@ public class point implements Listener {
             if (block.getType() == Material.GOLD_ORE || block.getType() == Material.DEEPSLATE_GOLD_ORE) {
                 if(possibilty == 15){
                     int min = 8; // 最小值
-                    int max = 15; // 最大值
+                    int max = 16; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+2*randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -140,7 +140,7 @@ public class point implements Listener {
                     p.sendMessage(ChatColor.GREEN + "(暴擊)黃金+"+2*randompoint+"分");
                 }else{
                     int min = 8; // 最小值
-                    int max = 15; // 最大值
+                    int max = 16; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -153,7 +153,7 @@ public class point implements Listener {
 
                 if(possibilty == 15){
                     int min = 150; // 最小值
-                    int max = 300; // 最大值
+                    int max = 301; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+2*randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -161,7 +161,7 @@ public class point implements Listener {
                     p.sendMessage(ChatColor.GREEN + "(暴擊)綠寶石+"+2*randompoint+"分");
                 }else{
                     int min = 150; // 最小值
-                    int max = 300; // 最大值
+                    int max = 301; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -176,7 +176,7 @@ public class point implements Listener {
 
                 if(possibilty == 15){
                     int min = 0; // 最小值
-                    int max = 2; // 最大值
+                    int max = 3; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+2*randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -184,7 +184,7 @@ public class point implements Listener {
                     p.sendMessage(ChatColor.GREEN + "(暴擊)銅礦+"+2*randompoint+"分");
                 }else{
                     int min = 0; // 最小值
-                    int max = 2; // 最大值
+                    int max = 3; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -199,7 +199,7 @@ public class point implements Listener {
 
                 if(possibilty == 15){
                     int min = 6; // 最小值
-                    int max = 10; // 最大值
+                    int max = 11; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+2*randompoint+" WHERE UUID in ('"+UUid+"')";
@@ -207,7 +207,7 @@ public class point implements Listener {
                     p.sendMessage(ChatColor.GREEN + "(暴擊)青金石+"+2*randompoint+"分");
                 }else{
                     int min = 6; // 最小值
-                    int max = 10; // 最大值
+                    int max = 11; // 最大值
                     int randompoint = random.nextInt(min, max);
                     sqldata = "UPDATE datafile " +
                             "SET point = point + "+randompoint+" WHERE UUID in ('"+UUid+"')";
