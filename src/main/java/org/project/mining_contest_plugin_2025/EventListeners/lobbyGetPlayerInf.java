@@ -39,7 +39,7 @@ public class lobbyGetPlayerInf implements Listener{
           String name = p.getName();
           UUID UUid = p.getUniqueId();
           String myserverid = "";
-         String[] SQLDATA = SQLcollection.SQL();
+         //String[] SQLDATA = SQLcollection.SQL();
           String serverid = Mining_contest_plugin_2025.getMain().getConfig().getString("serverid");
           final BukkitRunnable runnable1 = new BukkitRunnable() {
               public void run() {
@@ -54,10 +54,10 @@ public class lobbyGetPlayerInf implements Listener{
                   System.out.println("op");
               }};
       if(Mining_contest_plugin_2025.status==1){
-          try (Connection check_conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-               Statement stmt3 = check_conn.createStatement();
-               ResultSet rs = stmt3.executeQuery("select * from datafile WHERE UUID in ('"+UUid+"')");
+          try (Connection check_conn = SQLcollection.getConnection();
+               PreparedStatement stmt = check_conn.prepareStatement("select * from datafile WHERE UUID in ('"+UUid+"')");
           ) {
+              ResultSet rs = stmt.executeQuery();
               rs.next();
               myserverid = rs.getString("server");
               //System.out.println("myserverid id = "+myserverid);
@@ -71,12 +71,11 @@ public class lobbyGetPlayerInf implements Listener{
           catch (SQLException ed) {
               if(!p.hasPlayedBefore()){
                   if(!p.isOp()) {
-                      try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-                           Statement stmt = conn.createStatement();
+                      try (Connection conn = SQLcollection.getConnection();
+                           PreparedStatement stmt = conn.prepareStatement("INSERT INTO datafile (player, UUID, point, tp, pvppoint, server, pvpmode) VALUES ('" + name + "', '" + UUid + "','" + 0 + "','" + 0 + "','" + 0 + "','" + serverid + "','" + 0 + "')")
                       ) {
-                          String creditrecord = "INSERT INTO datafile (player, UUID, point, tp, pvppoint, server, pvpmode) VALUES ('" + name + "', '" + UUid + "','" + 0 + "','" + 0 + "','" + 0 + "','" + serverid + "','" + 0 + "')";
                           //String creditrecord = "INSERT INTO datafile VALUES ('" + name + "', '" + UUid + "','" + 0 + "','" + 0 + "','" + 0 + "','" + 0 + "')";
-                          stmt.executeUpdate(creditrecord);
+                          stmt.executeUpdate();
 
                       } catch (SQLException e2) {
                           e2.printStackTrace();
@@ -90,7 +89,7 @@ public class lobbyGetPlayerInf implements Listener{
                       World world = Bukkit.getServer().getWorld("world");
                       Location location = new Location(world, random.nextInt(-6, 6), 262, random.nextInt(-6, 6));
                       p.teleport(location);
-                      p.sendMessage(ChatColor.GREEN+"現階段處於等待階段，玩家可以使用 /enablepvp 指令進行PVP模式，最高得分者可獲得150mycard，PVP模式所得的分數與挖礦比賽所得的分數獨立分開，不想玩可以無需理會這條訊息");
+                      //p.sendMessage(ChatColor.GREEN+"現階段處於等待階段，玩家可以使用 /enablepvp 指令進行PVP模式，最高得分者可獲得150mycard，PVP模式所得的分數與挖礦比賽所得的分數獨立分開，不想玩可以無需理會這條訊息");
                       p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
                       runnable1.runTaskLater(plugin, 8);
                   }else{
@@ -105,20 +104,20 @@ public class lobbyGetPlayerInf implements Listener{
       }
         else{
           if(Mining_contest_plugin_2025.status==2){
-              try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-                   Statement stmt4 = conn.createStatement();
-                   ResultSet rss = stmt4.executeQuery("select * from datafile WHERE UUID in ('"+UUid+"')");
+              try (Connection conn = SQLcollection.getConnection();
+                   PreparedStatement stmt = conn.prepareStatement("select * from datafile WHERE UUID in ('"+UUid+"')");
               ) {
+                  ResultSet rss = stmt.executeQuery();
                   rss.next();
                   myserverid = rss.getString("server");
                   if (!(myserverid.equals(serverid))) {
                       p.kickPlayer("這不是你的分流，你已被封鎖進入該分流");
                   }
                   else{
-                  try (Connection cconn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-                       Statement stmt3 = cconn.createStatement();
-                       ResultSet rs = stmt3.executeQuery("select * from datafile WHERE UUID in ('"+UUid+"')");
+                  try (Connection cconn = SQLcollection.getConnection();
+                       PreparedStatement stmt3 = conn.prepareStatement("select * from datafile WHERE UUID in ('"+UUid+"')");
                   ) {
+                      ResultSet rs = stmt3.executeQuery();
                       rs.next();
                       int tp = rs.getInt("tp");
                       if(tp==0){
@@ -157,7 +156,7 @@ public class lobbyGetPlayerInf implements Listener{
                           p.getInventory().setItem(2, item3);
                           p.getInventory().setItem(3, item4);
                           p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
-                          try(Connection connn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+                          try(Connection connn = SQLcollection.getConnection();
                               Statement stmt5 = connn.createStatement()
                           ) {
                               String sqldata = "UPDATE datafile " +
@@ -182,7 +181,22 @@ public class lobbyGetPlayerInf implements Listener{
 
             }
           if(Mining_contest_plugin_2025.status==3){
-                  runnable2.runTaskLater(plugin, 5);
-          }}
-    }}
+              try (Connection conn = SQLcollection.getConnection();
+                   PreparedStatement stmt = conn.prepareStatement("select * from datafile WHERE UUID in ('"+UUid+"')");
+              ) {
+                  ResultSet rss = stmt.executeQuery();
+                  rss.next();
+                  myserverid = rss.getString("server");
+                  if (!(myserverid.equals(serverid))) {
+                      p.kickPlayer("這不是你的分流，你已被封鎖進入該分流");
+                  }
+          }
+              catch (SQLException eed) {
+                  if(!p.isOp()) {
+                      p.kickPlayer("比賽已經結束");
+                      //runnable2.runTaskLater(plugin, 5);
+                  }
+              }
+              runnable2.runTaskLater(plugin, 5);
+    }}}}
 

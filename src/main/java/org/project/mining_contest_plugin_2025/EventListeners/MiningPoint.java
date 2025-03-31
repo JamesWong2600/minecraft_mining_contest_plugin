@@ -25,11 +25,11 @@ public class MiningPoint implements Listener {
         Player p = event.getPlayer();
         UUID UUid = p.getUniqueId();
         Block block = event.getBlock();
-        String[] SQLDATA = org.project.mining_contest_plugin_2025.SQL.SQLcollection.SQL();
+        //String[] SQLDATA = org.project.mining_contest_plugin_2025.SQL.SQLcollection.SQL();
         String sqldata = null;
         Random random = new Random();
         if(Mining_contest_plugin_2025.status==2){
-        try(Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+        try(Connection conn = SQLcollection.getConnection();
             Statement stmt = conn.createStatement()
         ) {
             if (block.getType() == Material.DIAMOND_ORE || block.getType() == Material.DEEPSLATE_DIAMOND_ORE) {

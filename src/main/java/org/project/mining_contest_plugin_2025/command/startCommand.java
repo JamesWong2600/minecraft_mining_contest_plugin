@@ -13,10 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.project.mining_contest_plugin_2025.Mining_contest_plugin_2025;
 import org.project.mining_contest_plugin_2025.SQL.SQLcollection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Random;
 import java.util.UUID;
 
@@ -48,14 +45,13 @@ public class startCommand implements CommandExecutor {
                       }
                   }
                   int sz = Mining_contest_plugin_2025.getMain().getConfig().getInt("border.size");
-                  String[] SQLDATA = SQLcollection.SQL();
-                  try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-                       Statement stmt = conn.createStatement()
+                  //String[] SQLDATA = SQLcollection.SQL();
+                  try (Connection conn = SQLcollection.getConnection();
+                       PreparedStatement stmt = conn.prepareStatement( "UPDATE datafile SET tp = 1 WHERE UUID = ?");
                   ) {
                       UUID UUid = all.getUniqueId();
-                      String sqldata = "UPDATE datafile " +
-                              "SET tp = 1 WHERE UUID in ('" + UUid + "')";
-                      stmt.executeUpdate(sqldata);
+                      stmt.setString(1, UUid.toString());
+                      stmt.executeUpdate();
                   } catch (SQLException ed) {
                       ed.printStackTrace();
                   }

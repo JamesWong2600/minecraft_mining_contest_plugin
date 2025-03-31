@@ -8,8 +8,8 @@ import java.sql.Statement;
 public class CreateTable {
     public static void SQLCreateTable()
     {
-        String[] SQLDATA = SQLcollection.SQL();
-        try(Connection connn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+       // String[] SQLDATA = SQLcollection.SQL();
+        try(Connection connn = SQLcollection.getConnection();
             Statement stmt = connn.createStatement();
         ) {
             String data = "CREATE TABLE datafile " +

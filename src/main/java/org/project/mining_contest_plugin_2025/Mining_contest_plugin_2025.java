@@ -17,6 +17,8 @@ import org.project.mining_contest_plugin_2025.command.Looby_paste_command;
 import org.project.mining_contest_plugin_2025.command.disablepvp;
 import org.project.mining_contest_plugin_2025.command.enablepvp;
 import org.project.mining_contest_plugin_2025.command.startCommand;
+import com.zaxxer.hikari.HikariDataSource;
+
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -58,7 +60,8 @@ public final class Mining_contest_plugin_2025 extends JavaPlugin {
     @Override
     public void onEnable() {
         main = this;
-        SQLcollection.SQLCONNECT();
+        System.out.print("yess");
+        SQLcollection.initialize();
         TableExist.Tableexist();
         Create();
         timer = Integer.valueOf(SQLcollection.time());

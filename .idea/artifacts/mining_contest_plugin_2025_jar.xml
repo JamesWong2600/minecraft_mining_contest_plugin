@@ -3,6 +3,8 @@
     <output-path>$PROJECT_DIR$/out/artifacts/mining_contest_plugin_2025_jar</output-path>
     <root id="archive" name="mining_contest_plugin_2025.jar">
       <element id="module-output" name="mining_contest_plugin_2025" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:2.0.9" />
+      <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:5.0.1" />
     </root>
   </artifact>
 </component>

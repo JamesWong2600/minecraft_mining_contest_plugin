@@ -28,7 +28,7 @@ public class Deadevent implements Listener {
         Player p = event.getPlayer();
         UUID UUid = p.getUniqueId();
         String uid = String.valueOf(UUid);
-        String[] SQLDATA = org.project.mining_contest_plugin_2025.SQL.SQLcollection.SQL();
+        //String[] SQLDATA = org.project.mining_contest_plugin_2025.SQL.SQLcollection.SQL();
         String sqldata = null;
         if(Mining_contest_plugin_2025.status==1) {
             new BukkitRunnable(){
@@ -37,12 +37,10 @@ public class Deadevent implements Listener {
                     if(!(d==null)){
                     UUID DUUid = d.getUniqueId();
                     String duid = String.valueOf(DUUid);
-                    try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-                         Statement stmt = conn.createStatement();
+                    try (Connection conn = SQLcollection.getConnection();
+                         PreparedStatement stmt = conn.prepareStatement("UPDATE datafile SET pvppoint = pvppoint + 1 WHERE UUID in ('" + duid + "')");
                     ) {
-                        String sqldata2 = "UPDATE datafile " +
-                                "SET pvppoint = pvppoint + 1 WHERE UUID in ('" + duid + "')";
-                        stmt.executeUpdate(sqldata2);
+                         stmt.executeUpdate();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -104,8 +102,8 @@ public class Deadevent implements Listener {
                         location[0] = new Location(world, random.nextInt(-18, 18), 262, random.nextInt(-18, 18));
                         location[0].getChunk();
                         p.teleport(location[0]);
-                        String[] SQLDATA = SQLcollection.SQL();
-                        try(Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+                        //String[] SQLDATA = SQLcollection.SQL();
+                        try(Connection conn = SQLcollection.getConnection();
                             Statement stmt = conn.createStatement()
                         ) {
                             String sqldata = "UPDATE datafile " +
@@ -121,7 +119,7 @@ public class Deadevent implements Listener {
                 }}.runTaskLater(plugin, 1L);
         }
         if(Mining_contest_plugin_2025.status==2) {
-            try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+            try (Connection conn = SQLcollection.getConnection();
                  Statement stmt = conn.createStatement();
                  Statement stmt2 = conn.createStatement();
                  Statement stmt3 = conn.createStatement();

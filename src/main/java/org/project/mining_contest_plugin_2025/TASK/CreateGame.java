@@ -3,6 +3,7 @@ package org.project.mining_contest_plugin_2025.TASK;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.project.mining_contest_plugin_2025.Mining_contest_plugin_2025;
+import org.project.mining_contest_plugin_2025.SQL.SQLcollection;
 
 import java.io.File;
 import java.sql.*;
@@ -67,8 +68,8 @@ public class CreateGame {
 
         //System.out.println("avaliabe to join");
         Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), "gamerule keepInventory true");
-        String[] SQLDATA = org.project.mining_contest_plugin_2025.SQL.SQLcollection.SQL();
-        try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+        //String[] SQLDATA = org.project.mining_contest_plugin_2025.SQL.SQLcollection.SQL();
+        try (Connection conn = SQLcollection.getConnection();
              Statement stmt = conn.createStatement();
         ) {
             String creditrecord = "INSERT INTO datafile VALUES (0, 'server', '123456','" + 0 + "','" + 0 + "','" + 0 + "','" + 0 + "','" + 0 + "')";

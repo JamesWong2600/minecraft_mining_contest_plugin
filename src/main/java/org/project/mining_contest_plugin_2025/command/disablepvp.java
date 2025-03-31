@@ -32,8 +32,8 @@ public class disablepvp implements CommandExecutor {
                 Player p = (Player) sender;
                 UUID UUid = p.getUniqueId();
               String uid = String.valueOf(UUid);
-                String[] SQLDATA = SQLcollection.SQL();
-                try(Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+                //String[] SQLDATA = SQLcollection.SQL();
+                try(Connection conn = SQLcollection.getConnection();
                     Statement stmt = conn.createStatement()
                 ) {
                     String sqldata = "UPDATE datafile " +

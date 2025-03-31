@@ -27,7 +27,7 @@ public class setscore {
             Objective objective = scoreboard.get(all).registerNewObjective("test", "dummy");
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
             objective.setDisplayName(ChatColor.RED + Mining_contest_plugin_2025.getMain().getConfig().getString("title"));
-            String[] SQLDATA = SQLcollection.SQL();
+            //String[] SQLDATA = SQLcollection.SQL();
             int playercount = 0;
             for (Player alls : Bukkit.getServer().getOnlinePlayers()) {
                 if (alls.getGameMode().equals(GameMode.ADVENTURE)) {
@@ -43,11 +43,10 @@ public class setscore {
             int[] maxpoint = new int[1];;
             if(!all.isOp()) {
                 if (all.getGameMode().equals(GameMode.ADVENTURE)){
-                try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-                     Statement stmt = conn.createStatement();
-                     Statement stmt2 = conn.createStatement();
-                     ResultSet rs = stmt.executeQuery("select * from datafile WHERE UUID in ('" + uid + "')");
+                try (Connection conn = SQLcollection.getConnection();
+                     PreparedStatement stmt = conn.prepareStatement("select * from datafile WHERE UUID in ('" + uid + "')");
                 ) {
+                    ResultSet rs = stmt.executeQuery();
                     rs.next();
                     pvpmode[0] = rs.getInt("pvpmode");
                     pvpoint[0] = rs.getInt("pvppoint");
@@ -55,11 +54,10 @@ public class setscore {
                     throw new RuntimeException(e);
                 }
             }}
-            try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-                 Statement stmt = conn.createStatement();
-                 Statement stmt2 = conn.createStatement();
-                 ResultSet rss = stmt2.executeQuery("select * from datafile where pvppoint = (select max(pvppoint) from datafile)");
+            try (Connection conn = SQLcollection.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement("select * from datafile where pvppoint = (select max(pvppoint) from datafile)");
             ) {
+                ResultSet rss = stmt.executeQuery();
                 rss.next();
                 maxpointplayer[0] = rss.getString("player");
                 maxpoint[0] = rss.getInt("pvppoint");
@@ -102,7 +100,7 @@ public class setscore {
 
     public static Map<Player, Scoreboard> ProcessingBoard()
     {
-    String[] SQLDATA = SQLcollection.SQL();
+    //String[] SQLDATA = SQLcollection.SQL();
     ScoreboardManager manager = Bukkit.getScoreboardManager();
     //Scoreboard Scoreboard = manager.getNewScoreboard();
     Map<Player, Scoreboard> Scoreboard = new HashMap<Player, Scoreboard>();  ;
@@ -114,10 +112,10 @@ public class setscore {
         int ping = all.getPing();
         String[] ranking = FindMaxPlayer.MaxPlayer();
         if(all.getGameMode().equals(GameMode.SURVIVAL)){
-        try(Connection connn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
-         Statement stmt = connn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT * FROM datafile where UUID in ('"+all.getUniqueId().toString()+"')");
+        try(Connection connn = SQLcollection.getConnection();
+         PreparedStatement stmt = connn.prepareStatement("SELECT * FROM datafile where UUID in ('"+all.getUniqueId().toString()+"')");
     ) {
+         ResultSet rs = stmt.executeQuery();
          rs.next();
          mark = rs.getString("point");
          Scoreboard.put(all, manager.getNewScoreboard());

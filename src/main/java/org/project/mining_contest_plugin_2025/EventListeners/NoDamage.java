@@ -26,7 +26,7 @@ public class NoDamage implements Listener {
       //  }
       //  else{
         if(Mining_contest_plugin_2025.status==1) {
-            String[] SQLDATA = SQLcollection.SQL();
+            //String[] SQLDATA = SQLcollection.SQL();
             if(event.getDamager() instanceof Player){
             Player p = (Player) event.getEntity();
             Player d = (Player) event.getDamager();
@@ -34,7 +34,7 @@ public class NoDamage implements Listener {
             String uid = String.valueOf(UUid);
             UUID dUUid = d.getUniqueId();
             String duid = String.valueOf(dUUid);
-            try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+            try (Connection conn = SQLcollection.getConnection();
                  Statement stmt = conn.createStatement();
                  Statement stmt2 = conn.createStatement();
                  Statement stmt3 = conn.createStatement();
@@ -71,7 +71,7 @@ public class NoDamage implements Listener {
                 Player aa = (Player) arrow.getShooter();
                 UUID aaUUid = aa.getUniqueId();
                 String aauid = String.valueOf(aaUUid);
-            try (Connection conn = DriverManager.getConnection(SQLDATA[1], SQLDATA[2], SQLDATA[3]);
+            try (Connection conn = SQLcollection.getConnection();
                  Statement stmt = conn.createStatement();
                  Statement stmt2 = conn.createStatement();
                  Statement stmt3 = conn.createStatement();
