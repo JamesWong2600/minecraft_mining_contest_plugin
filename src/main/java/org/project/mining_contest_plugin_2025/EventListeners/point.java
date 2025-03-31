@@ -123,7 +123,7 @@ public class point implements Listener {
                     int randompoint = random.nextInt(min, max);
                     stmt.setInt(1, randompoint);
                     stmt.setString(2, uid);
-                    p.sendMessage(ChatColor.GREEN + "紅石礦+"+2*randompoint+"分");
+                    p.sendMessage(ChatColor.GREEN + "紅石礦+"+randompoint+"分");
                     stmt.executeUpdate();
                 }
                 p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
@@ -164,7 +164,7 @@ public class point implements Listener {
                     int randompoint = random.nextInt(min, max);
                     stmt.setInt(1, randompoint);
                     stmt.setString(2, uid);
-                    p.sendMessage(ChatColor.GREEN + "綠寶石礦+"+2*randompoint+"分");
+                    p.sendMessage(ChatColor.GREEN + "綠寶石礦+"+randompoint+"分");
                     stmt.executeUpdate();
 
                 }
