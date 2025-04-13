@@ -83,5 +83,10 @@
              <artifactId>HikariCP</artifactId>
              <version>5.0.1</version> <!-- Or the latest version -->
         </dependency>
+         <dependency>
+             <groupId>com.google.guava</groupId>
+             <artifactId>guava</artifactId>
+             <version>31.1-jre</version>
+         </dependency>
     </dependencies>
 </project>

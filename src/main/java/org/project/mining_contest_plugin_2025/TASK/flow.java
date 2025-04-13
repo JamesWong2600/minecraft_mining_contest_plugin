@@ -59,6 +59,7 @@ public class flow {
                 //String[] SQLDATA = SQLcollection.SQL();
                 if(all.isOp()){
                     all.sendTitle(ChatColor.GREEN + "比賽已經結束",ChatColor.YELLOW +"請等待主辦方公佈排名", 4, 150, 4);
+                    all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
                 }
                 else if(all.getGameMode().equals(GameMode.SURVIVAL)){
                 try(Connection conn = SQLcollection.getConnection();
@@ -67,7 +68,7 @@ public class flow {
                 ) {
                     rs.next();
                     int point = rs.getInt("point");
-                    all.sendTitle(ChatColor.GREEN + "你的最終得分= " + point , ChatColor.YELLOW +"請等待主辦方公佈排名", 4, 150, 4);
+                    all.sendTitle(ChatColor.GREEN + "你的最終得分= " + point , ChatColor.YELLOW +"請等待主辦方公佈排名", 5, 300, 5);
                     all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
                     all.setGameMode(GameMode.SPECTATOR);
                 } catch (SQLException e) {

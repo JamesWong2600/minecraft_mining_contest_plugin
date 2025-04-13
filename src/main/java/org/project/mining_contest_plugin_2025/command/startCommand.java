@@ -12,6 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.project.mining_contest_plugin_2025.Mining_contest_plugin_2025;
 import org.project.mining_contest_plugin_2025.SQL.SQLcollection;
+import org.project.mining_contest_plugin_2025.cache.SimpleGuavaCache;
 
 import java.sql.*;
 import java.util.Random;
@@ -26,7 +27,9 @@ public class startCommand implements CommandExecutor {
         this.plugin = plugin;
     }
     int sz = Mining_contest_plugin_2025.getMain().getConfig().getInt("border.size");
-
+    int time_cooldown = Mining_contest_plugin_2025.getMain().getConfig().getInt("time");
+    SimpleGuavaCache cache = SimpleGuavaCache.getInstance("command_cache", time_cooldown+120);
+    //SimpleGuavaCache cache = SimpleGuavaCache.getInstance(time_cooldown+120);
     public static void start()
     {
         for(Player all : Bukkit.getServer().getOnlinePlayers())
@@ -121,11 +124,15 @@ public class startCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(status==1){
+
         if(sender instanceof Player){
           Player p = (Player) sender;
         if(!(p.isOp())){
             p.sendMessage("你目前還沒有那個權力去執行這條指令");
         }else{
+                String start_cooldown = cache.get("start_cooldown");
+                if(!start_cooldown.equals("true")){
+                cache.put("start_cooldown", "true");
                 new BukkitRunnable() {
                     public void run() {
                         countdown[0] -= 1;
@@ -138,6 +145,10 @@ public class startCommand implements CommandExecutor {
                         }
                     }
                 }.runTaskTimer(plugin, 0, 20);
+                }
+                else{
+                    p.sendMessage("指令已執行，無需再執行");
+                }
         }}}return false;}}
 
 
