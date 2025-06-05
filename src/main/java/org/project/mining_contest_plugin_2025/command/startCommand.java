@@ -87,10 +87,10 @@ public class startCommand implements CommandExecutor {
                   PlayerInventory inventory = all.getInventory();
                   all.sendTitle(ChatColor.GREEN + "比賽正式開始", "", 4, 20, 4);
                   inventory.clear();
-                  ItemStack item1 = new ItemStack(Material.DIAMOND_PICKAXE);
+                  ItemStack item1 = new ItemStack(Material.NETHERITE_PICKAXE);
                   ItemStack item2 = new ItemStack(Material.BIRCH_BOAT);
                   ItemStack item3 = new ItemStack(Material.DARK_OAK_DOOR);
-                  ItemStack item4 = new ItemStack(Material.COOKED_BEEF,5);
+                  ItemStack item4 = new ItemStack(Material.COOKED_BEEF,8);
                   all.getInventory().setItem(0, item1);
                   all.getInventory().setItem(1, item2);
                   all.getInventory().setItem(2, item3);
