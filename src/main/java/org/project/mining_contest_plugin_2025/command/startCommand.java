@@ -36,11 +36,11 @@ public class startCommand implements CommandExecutor {
         {
             if(all.getGameMode().equals(GameMode.ADVENTURE)){
               if(!all.isOp()) {
-                  for (int x = -30; x < 30; x++) // whole chunk
+                  for (int x = -35; x < 35; x++) // whole chunk
                   {
-                      for (int z = -30; z < 30; z++) // whole chunk
+                      for (int z = -35; z < 35; z++) // whole chunk
                       {
-                          for (int y = 249; y < 280; y++) // any level between 1 - 40
+                          for (int y = 249; y < 290; y++) // any level between 1 - 40
                           {
                               Location loc = new Location(Bukkit.getWorld("world"), x, y, z);
                               loc.getBlock().setType(Material.AIR);

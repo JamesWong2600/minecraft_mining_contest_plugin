@@ -91,7 +91,7 @@ public class enablepvp implements CommandExecutor {
                         p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
                         Random random = new Random();
                         World world = Bukkit.getServer().getWorld("world");
-                        Location location = new Location(world, random.nextInt(-10, 10), 253, random.nextInt(-10, 10));
+                        Location location = new Location(world, random.nextInt(-6, 6), 255, random.nextInt(-6, 6));
                         p.teleport(location);
                     }
                 }

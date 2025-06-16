@@ -78,7 +78,7 @@ public class disablepvp implements CommandExecutor {
                                 p.sendMessage(ChatColor.RED+"pvp已關閉，可以透過輸入指令 /enablepvp 來開啓pvp模式");
                                 Random random = new Random();
                                 World world = Bukkit.getServer().getWorld("world");
-                                Location location = new Location(world, random.nextInt(-6, 6), 262, random.nextInt(-6, 6));
+                                Location location = new Location(world, random.nextInt(-6, 6), 263, random.nextInt(-6, 6));
                                 p.teleport(location);
                                 p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
                             }
