@@ -6,8 +6,10 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
+import org.bukkit.block.data.type.Leaves;
 import org.bukkit.block.data.type.Slab;
 import org.bukkit.block.data.type.Stairs;
+import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -51,31 +53,36 @@ public class Looby_paste_command implements CommandExecutor {
                        String halfStr = rs2.getString("stair_half").toUpperCase();
                        String facingStr = rs2.getString("stair_facing").toUpperCase();   // e.g. "NORTH"
                        String direction = rs2.getString("direction").toUpperCase();
+                       String trapdoor_isopen = rs2.getString("trapdoor_isopen").toUpperCase();     // e.g. "INNER_LEFT"
+                       String trapdoor_ispowered = rs2.getString("trapdoor_ispowered").toUpperCase();
+                       String trapdoor_facing = rs2.getString("trapdoor_facing").toUpperCase();
+                       String trapdoor_half = rs2.getString("trapdoor_half").toUpperCase();
                        Block block;
                        block = Bukkit.getWorld("world").getBlockAt(X, Y, Z);
                        Material material;
                        material = Material.valueOf(blocktype);
                        BlockData data = block.getBlockData();
-                       //if (direction.equals("none")) {
-                           //block = Bukkit.getWorld("world").getBlockAt(X, Y, Z);
-                      //}
-                       if (!direction.equals("NONE")) {
+                       if (direction.equals("NONE") && trapdoor_isopen.equals("NONE") && halfStr.equals("NONE") && slab_y.equals("NONE") && !blocktype.contains("LEAVES")){
+                           block.setType(material);
+                       }
+                       else if (!direction.equals("NONE")) {
+                           block.setType(material);
                            data = block.getBlockData();
                            if (data instanceof Directional) {
                            Directional directional = (Directional) data;
 
                            try {
-                               System.out.println(direction);
+                               //System.out.println(direction);
                                BlockFace face = BlockFace.valueOf(direction);
                                block = block.getRelative(face);
-                               block.setType(material);
                                block.setBlockData(directional);
+                               //System.out.println("go");
                            } catch (IllegalArgumentException e) {
                                System.out.println("Invalid direction: " + direction);
                            }
                            }
                        } else if (!slab_y.equals("NONE")) {
-                           System.out.println("slab");
+                           //System.out.println("slab");
 
                            block.setType(material); // Set type first
                            data = block.getBlockData();
@@ -95,7 +102,7 @@ public class Looby_paste_command implements CommandExecutor {
                            }
 
                        } else if (!halfStr.equals("NONE")) {
-                           System.out.println("stair");
+                           //System.out.println("stair");
 
                            block.setType(material); // Set type first
                            data = block.getBlockData();
@@ -118,6 +125,38 @@ public class Looby_paste_command implements CommandExecutor {
                                }
                            } else {
                                System.out.println(material + " is not a stair.");
+                           }
+                       }
+                       else if (!trapdoor_isopen.equals("NONE")) {
+                           //System.out.println("stair");
+
+                           block.setType(material); // Set type first
+                           data = block.getBlockData();
+                       if (data instanceof TrapDoor) {
+                           TrapDoor trapdoor = (TrapDoor) data;
+
+                           try {
+                               trapdoor.setFacing(BlockFace.valueOf(trapdoor_facing));
+                               trapdoor.setHalf(Bisected.Half.valueOf(trapdoor_half));
+                               trapdoor.setOpen(Boolean.parseBoolean(trapdoor_isopen));
+                               trapdoor.setPowered(Boolean.parseBoolean(trapdoor_ispowered ));
+
+                               // Step 4: Apply the configured block data
+                               block.setBlockData(trapdoor);
+                           } catch (IllegalArgumentException e) {
+                               System.out.println("Invalid trapdoor property: " + e.getMessage());
+                           }
+                       }
+                       }
+                       else if (blocktype.contains("LEAVES")) {
+                           //System.out.println("stair");
+
+                           block.setType(material); // Set type first
+                           data = block.getBlockData();
+                           if (data instanceof Leaves) {
+                               Leaves leaves = (Leaves) data;
+                               leaves.setPersistent(true);
+                               block.setBlockData(leaves);
                            }
                        }
                    //System.out.println(block.toString());
