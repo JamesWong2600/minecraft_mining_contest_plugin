@@ -1,41 +1,35 @@
 package org.project.mining_contest_plugin_2025;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketAdapter;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.project.mining_contest_plugin_2025.EventListeners.*;
+import org.project.mining_contest_plugin_2025.EventListeners.Deadevent;
+import org.project.mining_contest_plugin_2025.EventListeners.NoDamage;
+import org.project.mining_contest_plugin_2025.EventListeners.axedistance;
+import org.project.mining_contest_plugin_2025.EventListeners.itemdropwhenlobby;
+import org.project.mining_contest_plugin_2025.EventListeners.lobbyGetPlayerInf;
+import org.project.mining_contest_plugin_2025.EventListeners.point;
 import org.project.mining_contest_plugin_2025.SQL.SQLcollection;
 import org.project.mining_contest_plugin_2025.SQL.TableExist;
+import static org.project.mining_contest_plugin_2025.TASK.CreateGame.Create;
 import org.project.mining_contest_plugin_2025.TASK.flow;
 import org.project.mining_contest_plugin_2025.command.Looby_paste_command;
+import org.project.mining_contest_plugin_2025.command.add_admin;
 import org.project.mining_contest_plugin_2025.command.disablepvp;
 import org.project.mining_contest_plugin_2025.command.enablepvp;
 import org.project.mining_contest_plugin_2025.command.startCommand;
-import com.zaxxer.hikari.HikariDataSource;
-
-
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketListener;
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.PacketType;
-
-import java.lang.reflect.Method;
-import java.util.Objects;
-
-import static org.bukkit.Bukkit.getServer;
-import static org.project.mining_contest_plugin_2025.TASK.CreateGame.Create;
 
 public final class Mining_contest_plugin_2025 extends JavaPlugin {
-
+    private Connection connection;
     final BukkitRunnable runnable1 = new BukkitRunnable() {
         public void run() {
             //System.out.println("flow");
@@ -64,6 +58,12 @@ public final class Mining_contest_plugin_2025 extends JavaPlugin {
         SQLcollection.initialize();
         TableExist.Tableexist();
         Create();
+        try {
+            openDatabase();
+            createTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         timer = Integer.valueOf(SQLcollection.time());
         Bukkit.getServer().getPluginManager().registerEvents(new lobbyGetPlayerInf(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new itemdropwhenlobby(this), this);
@@ -76,12 +76,35 @@ public final class Mining_contest_plugin_2025 extends JavaPlugin {
         this.getCommand("disablepvp").setExecutor(new disablepvp(this));
         this.getCommand("enablepvp").setExecutor(new enablepvp(this));
         this.getCommand("paste").setExecutor(new Looby_paste_command(this));
+        this.getCommand("addadmin").setExecutor(new add_admin(this));
         runnable1.runTaskTimer(this, 0,20);
         Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), "paste");
         System.out.println("the lobby has been generated");
-        //runnable2.runTaskTimer(this, 0,1500);
+
+
+    }
+    private void openDatabase() throws SQLException {
+    File dataFolder = getDataFolder();
+    if (!dataFolder.exists()) {
+    dataFolder.mkdirs();
+    }
+    String url = "jdbc:sqlite:" + dataFolder.getAbsolutePath() + File.separator + "admin.db";
+    connection = DriverManager.getConnection(url);
+    System.out.println("connected");
     }
 
+    private void createTable() throws SQLException {
+    String sql = "CREATE TABLE IF NOT EXISTS admin (" +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "playername TEXT, " +
+            "player_uuid TEXT" +
+            ")";
+    try (Statement stmt = connection.createStatement()) {
+    stmt.execute(sql);
+    } catch (SQLException e) {
+    e.printStackTrace();
+    }
+    }
     @Override
     public void onDisable() {
         // Plugin shutdown logic

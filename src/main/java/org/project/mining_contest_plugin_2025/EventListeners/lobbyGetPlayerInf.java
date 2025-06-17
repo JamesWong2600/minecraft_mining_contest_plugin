@@ -1,7 +1,23 @@
 package org.project.mining_contest_plugin_2025.EventListeners;
 
 
-import org.bukkit.*;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Random;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,12 +29,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.project.mining_contest_plugin_2025.Mining_contest_plugin_2025;
 import org.project.mining_contest_plugin_2025.SQL.SQLcollection;
-
-import java.sql.*;
-import java.util.Objects;
-import java.util.Random;
-import java.util.UUID;
-
 
 
 public class lobbyGetPlayerInf implements Listener{
@@ -38,7 +48,28 @@ public class lobbyGetPlayerInf implements Listener{
           Player p = e.getPlayer();
           String name = p.getName();
           UUID UUid = p.getUniqueId();
+          Boolean isAdmin = false;
           String myserverid = "";
+        File dataFolder = plugin.getDataFolder();
+        String url = "jdbc:sqlite:" + dataFolder.getAbsolutePath() + File.separator + "admin.db";
+        String SQL = "SELECT * FROM admin WHERE player_uuid = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+            PreparedStatement stmt = conn.prepareStatement(SQL)) {
+            stmt.setString(1, UUid.toString());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String maxid = rs.getString("playername");
+                    System.out.println("playername = "+maxid);
+                    if (maxid.equals(name)) {
+                        isAdmin = true;
+                        System.out.println("is admin");
+                        p.sendMessage(ChatColor.GREEN + "歡迎管理員 " + name + " 進入挖礦比賽大廳");
+                    }
+                }
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
          //String[] SQLDATA = SQLcollection.SQL();
           String serverid = Mining_contest_plugin_2025.getMain().getConfig().getString("serverid");
           final BukkitRunnable runnable1 = new BukkitRunnable() {
@@ -70,7 +101,7 @@ public class lobbyGetPlayerInf implements Listener{
           }
           catch (SQLException ed) {
               if(!p.hasPlayedBefore()){
-                  if(!p.isOp()) {
+                  if(!p.isOp() && !isAdmin) {
                       try (Connection conn = SQLcollection.getConnection();
                            PreparedStatement stmt = conn.prepareStatement("INSERT INTO datafile (player, UUID, point, tp, pvppoint, server, pvpmode) VALUES ('" + name + "', '" + UUid + "','" + 0 + "','" + 0 + "','" + 0 + "','" + serverid + "','" + 0 + "')")
                       ) {
@@ -92,7 +123,7 @@ public class lobbyGetPlayerInf implements Listener{
                       //p.sendMessage(ChatColor.GREEN+"現階段處於等待階段，玩家可以使用 /enablepvp 指令進行PVP模式，最高得分者可獲得150mycard，PVP模式所得的分數與挖礦比賽所得的分數獨立分開，不想玩可以無需理會這條訊息");
                       p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
                       runnable1.runTaskLater(plugin, 8);
-                  }else{
+                  }else if(p.isOp() || isAdmin){
                       runnable2.runTaskLater(plugin, 5);
                   }
 
@@ -173,7 +204,7 @@ public class lobbyGetPlayerInf implements Listener{
                   }
               }
               }catch (SQLException eed) {
-                  if(!p.isOp()) {
+                  if(!p.isOp() && !isAdmin) {
                       p.kickPlayer("比賽已經開始");
                       //runnable2.runTaskLater(plugin, 5);
                   }
@@ -192,7 +223,7 @@ public class lobbyGetPlayerInf implements Listener{
                   }
           }
               catch (SQLException eed) {
-                  if(!p.isOp()) {
+                  if(!p.isOp() && !isAdmin) {
                       p.kickPlayer("比賽已經結束");
                       //runnable2.runTaskLater(plugin, 5);
                   }
