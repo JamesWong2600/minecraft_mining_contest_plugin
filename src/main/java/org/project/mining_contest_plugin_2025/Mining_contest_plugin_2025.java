@@ -1,6 +1,7 @@
 package org.project.mining_contest_plugin_2025;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,6 +16,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.project.mining_contest_plugin_2025.EventListeners.Deadevent;
 import org.project.mining_contest_plugin_2025.EventListeners.NoDamage;
 import org.project.mining_contest_plugin_2025.EventListeners.axedistance;
+import org.project.mining_contest_plugin_2025.EventListeners.cross_server_receive_message;
+import org.project.mining_contest_plugin_2025.EventListeners.cross_server_send_message;
 import org.project.mining_contest_plugin_2025.EventListeners.itemdropwhenlobby;
 import org.project.mining_contest_plugin_2025.EventListeners.lobbyGetPlayerInf;
 import org.project.mining_contest_plugin_2025.EventListeners.point;
@@ -28,7 +31,9 @@ import org.project.mining_contest_plugin_2025.command.disablepvp;
 import org.project.mining_contest_plugin_2025.command.enablepvp;
 import org.project.mining_contest_plugin_2025.command.startCommand;
 
+
 public final class Mining_contest_plugin_2025 extends JavaPlugin {
+    private cross_server_receive_message server;
     private Connection connection;
     final BukkitRunnable runnable1 = new BukkitRunnable() {
         public void run() {
@@ -64,12 +69,20 @@ public final class Mining_contest_plugin_2025 extends JavaPlugin {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        int webport = this.getConfig().getInt("webport");
+        System.out.println(webport);
+        try {
+            server = new cross_server_receive_message(webport); // Use any free port
+        } catch (IOException e) {
+            getLogger().severe("Failed to start NanoHTTPD server: " + e.getMessage());
+        }
         timer = Integer.valueOf(SQLcollection.time());
         Bukkit.getServer().getPluginManager().registerEvents(new lobbyGetPlayerInf(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new itemdropwhenlobby(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new Deadevent(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new point(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new NoDamage(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new cross_server_send_message(this), this);
         //Bukkit.getServer().getPluginManager().registerEvents(new sheildblocksound(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new axedistance(this), this);
         this.getCommand("start").setExecutor(new startCommand(this));

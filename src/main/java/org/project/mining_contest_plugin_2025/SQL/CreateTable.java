@@ -11,6 +11,7 @@ public class CreateTable {
        // String[] SQLDATA = SQLcollection.SQL();
         try(Connection connn = SQLcollection.getConnection();
             Statement stmt = connn.createStatement();
+            Statement stmt2 = connn.createStatement();
         ) {
             String data = "CREATE TABLE datafile " +
                     "(id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
@@ -21,18 +22,14 @@ public class CreateTable {
                     " pvppoint INTEGER, " +
                     " server INTEGER, " +
                     " pvpmode INTEGER)";
-            //String data = "CREATE TABLE datafile " +
-               //     "(id INTEGER not NULL, " +
-               //     " player VARCHAR(255), " +
-               //     " UUID VARCHAR(255), " +
-               //     " point FLOAT, " +
-               //     " tp INTEGER, " +
-                //    " pvppoint INTEGER, " +
-                //    " pvpmode INTEGER, " +
-                 //   " PRIMARY KEY ( id ))";
+            String data2 = "CREATE TABLE playercount " +
+                      "(id INTEGER PRIMARY KEY, " +
+                      " webport INTEGER, " +
+                      " count INTEGER)";
             System.out.println("Inserted records into the table...");
             System.out.println("Created table in given database...");
             stmt.executeUpdate(data);
+            stmt2.executeUpdate(data2);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -118,7 +118,7 @@ public class lobbyGetPlayerInf implements Listener{
                       //p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 1000000, 10));
                       Random random = new Random();
                       World world = Bukkit.getServer().getWorld("world");
-                      Location location = new Location(world, random.nextInt(-6, 6), 264, random.nextInt(-6, 6));
+                      Location location = new Location(world, random.nextInt(-4, 4), 264, random.nextInt(-4, 4));
                       p.teleport(location);
                       //p.sendMessage(ChatColor.GREEN+"現階段處於等待階段，玩家可以使用 /enablepvp 指令進行PVP模式，最高得分者可獲得150mycard，PVP模式所得的分數與挖礦比賽所得的分數獨立分開，不想玩可以無需理會這條訊息");
                       p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);

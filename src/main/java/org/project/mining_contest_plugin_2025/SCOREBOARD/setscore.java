@@ -31,8 +31,48 @@ public class setscore {
             int playercount = 0;
             for (Player alls : Bukkit.getServer().getOnlinePlayers()) {
                 if (alls.getGameMode().equals(GameMode.ADVENTURE)) {
-                    playercount += 1;
+                   playercount += 1;
                 }
+            }
+
+            String serverid = Mining_contest_plugin_2025.getMain().getConfig().getString("serverid");
+            int webport = Mining_contest_plugin_2025.getMain().getConfig().getInt("webport");
+
+            String check_sql = """
+                INSERT INTO playercount (id, webport, count)
+                VALUES (?, ?, ?)
+                ON DUPLICATE KEY UPDATE count = ?
+            """;
+
+            try (Connection check_conn = SQLcollection.getConnection();
+                 PreparedStatement check_stmt = check_conn.prepareStatement(check_sql)) {
+
+                check_stmt.setString(1, serverid);
+                check_stmt.setInt(2, webport);
+                check_stmt.setInt(3, playercount); // for the update part
+                check_stmt.setInt(4, playercount);
+
+                int affectedRows = check_stmt.executeUpdate();
+                //System.out.println("Upsert complete. Rows affected: " + affectedRows);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            String sql = "SELECT SUM(count) AS total_count FROM playercount";
+
+            try (Connection count_conn = SQLcollection.getConnection();
+                 PreparedStatement count_stmt = count_conn.prepareStatement(sql)) {
+
+                ResultSet count_rs = count_stmt.executeQuery();
+
+                if (count_rs.next()) {
+                    playercount = count_rs.getInt(1);
+                    //System.out.println("Count of rows where column != 'server': " + playercount);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
             int ping = all.getPing();
             UUID uuid = all.getUniqueId();
@@ -66,7 +106,8 @@ public class setscore {
             }
             Score score = objective.getScore("§" + "a" + ChatColor.WHITE + "目前狀態: lobby");
             score.setScore(8);
-            Score score3 = objective.getScore("§" + "b" + ChatColor.WHITE + "玩家數量: " + ChatColor.GREEN + playercount);
+            //test
+            Score score3 = objective.getScore("§" + "b" + ChatColor.WHITE + "玩家總數量: " + ChatColor.GREEN + playercount);
             score3.setScore(8);
             Score score6 = objective.getScore("§" + "c" + ChatColor.WHITE + "請等待主辦方開始比賽");
             score6.setScore(8);
@@ -122,13 +163,59 @@ public class setscore {
          Objective objective = Scoreboard.get(all).registerNewObjective("test", "dummy");
          objective.setDisplaySlot(DisplaySlot.SIDEBAR);
          objective.setDisplayName(ChatColor.RED + Mining_contest_plugin_2025.getMain().getConfig().getString("title"));
-         int playercount = 0;
-         for(Player alls : Bukkit.getServer().getOnlinePlayers())
-         {
-             if(alls.getGameMode().equals(GameMode.SURVIVAL)){
-             playercount+=1;
-             }
-         }
+            int playercount = 0;
+            for (Player alls : Bukkit.getServer().getOnlinePlayers()) {
+                if (alls.getGameMode().equals(GameMode.SURVIVAL)) {
+                    playercount += 1;
+                }
+            }
+
+            String serverid = Mining_contest_plugin_2025.getMain().getConfig().getString("serverid");
+            int webport = Mining_contest_plugin_2025.getMain().getConfig().getInt("webport");
+
+            String check_sql = """
+                INSERT INTO playercount (id, webport, count)
+                VALUES (?, ?, ?)
+                ON DUPLICATE KEY UPDATE count = ?
+            """;
+
+            try (Connection check_conn = SQLcollection.getConnection();
+                 PreparedStatement check_stmt = check_conn.prepareStatement(check_sql)) {
+
+                check_stmt.setString(1, serverid);
+                check_stmt.setInt(2, webport);
+                check_stmt.setInt(3, playercount); // for the update part
+                check_stmt.setInt(4, playercount);
+
+                int affectedRows = check_stmt.executeUpdate();
+                //System.out.println("Upsert complete. Rows affected: " + affectedRows);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            String sql = "SELECT SUM(count) AS total_count FROM playercount";
+
+            try (Connection count_conn = SQLcollection.getConnection();
+                 PreparedStatement count_stmt = count_conn.prepareStatement(sql)) {
+
+                ResultSet count_rs = count_stmt.executeQuery();
+
+                if (count_rs.next()) {
+                    playercount = count_rs.getInt(1);
+                    //System.out.println("Count of rows where column != 'server': " + playercount);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        //
+         //for(Player alls : Bukkit.getServer().getOnlinePlayers())
+         //{
+         //    if(alls.getGameMode().equals(GameMode.SURVIVAL)){
+         //    playercount+=1;
+        //     }
+        // }
        connn.close();
       Score score = objective.getScore("§" + "a" +ChatColor.WHITE+"目前狀態: 正在比賽");
       score.setScore(8);
@@ -151,7 +238,7 @@ public class setscore {
         //r5.setScore(8);
         Score score7 = objective.getScore("§" + "d" +ChatColor.WHITE+"你的分數: " + ChatColor.GREEN + mark + ChatColor.GREEN + " 分");
         score7.setScore(8);
-        Score score3 = objective.getScore("§" + "e" +ChatColor.WHITE+"玩家數量: " + ChatColor.GREEN + playercount+ ChatColor.GREEN + " 條");
+        Score score3 = objective.getScore("§" + "e" +ChatColor.WHITE+"玩家總數量: " + ChatColor.GREEN + playercount+ ChatColor.GREEN + " 條");
         score3.setScore(8);
         Score score000 = objective.getScore("§" + "f" +ChatColor.WHITE+"mspt: " + ChatColor.GREEN + tps + ChatColor.GREEN + " 毫秒/刻(tick)");
         score000.setScore(8);
@@ -175,11 +262,56 @@ public class setscore {
         objective.setDisplayName(ChatColor.RED + Mining_contest_plugin_2025.getMain().getConfig().getString("title"));
         int playercount = 0;
         int tps = (int) Bukkit.getServer().getAverageTickTime();
-        for(Player alls : Bukkit.getServer().getOnlinePlayers())
-        {
-            if(alls.getGameMode().equals(GameMode.SURVIVAL)){
-                playercount+=1;
+        //for(Player alls : Bukkit.getServer().getOnlinePlayers())
+        //{
+        //    if(alls.getGameMode().equals(GameMode.SURVIVAL)){
+       //         playercount+=1;
+       //     }
+       // }
+        for (Player alls : Bukkit.getServer().getOnlinePlayers()) {
+            if (alls.getGameMode().equals(GameMode.SURVIVAL)) {
+                playercount += 1;
             }
+        }
+
+        String serverid = Mining_contest_plugin_2025.getMain().getConfig().getString("serverid");
+        int webport = Mining_contest_plugin_2025.getMain().getConfig().getInt("webport");
+
+        String check_sql = """
+                INSERT INTO playercount (id, webport, count)
+                VALUES (?, ?, ?)
+                ON DUPLICATE KEY UPDATE count = ?
+            """;
+
+        try (Connection check_conn = SQLcollection.getConnection();
+             PreparedStatement check_stmt = check_conn.prepareStatement(check_sql)) {
+
+            check_stmt.setString(1, serverid);
+            check_stmt.setInt(2, webport);
+            check_stmt.setInt(3, playercount); // for the update part
+            check_stmt.setInt(4, playercount);
+
+            int affectedRows = check_stmt.executeUpdate();
+           // System.out.println("Upsert complete. Rows affected: " + affectedRows);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT SUM(count) AS total_count FROM playercount";
+
+        try (Connection count_conn = SQLcollection.getConnection();
+             PreparedStatement count_stmt = count_conn.prepareStatement(sql)) {
+
+            ResultSet count_rs = count_stmt.executeQuery();
+
+            if (count_rs.next()) {
+                playercount = count_rs.getInt(1);
+                //System.out.println("Count of rows where column != 'server': " + playercount);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         Score score = objective.getScore("§" + "a" + ChatColor.WHITE +"目前狀態: 正在比賽");
         score.setScore(8);
@@ -206,7 +338,7 @@ public class setscore {
         r7.setScore(8);
         Score r8 = objective.getScore("§" + "l" +ChatColor.WHITE+ " "+"8th: " + ChatColor.GREEN +ranking[14] +" "+ ChatColor.GREEN + ranking[15]+ ChatColor.GREEN + " 分");
         r8.setScore(8);
-        Score score3 = objective.getScore("§" + "m" +ChatColor.WHITE +"玩家數量: " + ChatColor.GREEN + playercount+ ChatColor.GREEN + " 條");
+        Score score3 = objective.getScore("§" + "m" +ChatColor.WHITE +"玩家總數量: " + ChatColor.GREEN + playercount+ ChatColor.GREEN + " 條");
         score3.setScore(8);
         Score score000 = objective.getScore("§" + "n" +ChatColor.WHITE+"mspt: " + ChatColor.GREEN + tps+ ChatColor.GREEN + " 毫秒/刻(tick)");
         score000.setScore(8);

@@ -6,6 +6,8 @@ C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project
 C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project\mining_contest_plugin_2025\command\Looby_paste_command.java
 C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project\mining_contest_plugin_2025\command\startCommand.java
 C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project\mining_contest_plugin_2025\EventListeners\axedistance.java
+C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project\mining_contest_plugin_2025\EventListeners\cross_server_receive_message.java
+C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project\mining_contest_plugin_2025\EventListeners\cross_server_send_message.java
 C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project\mining_contest_plugin_2025\EventListeners\Deadevent.java
 C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project\mining_contest_plugin_2025\EventListeners\itemdropwhenlobby.java
 C:\Users\mtyr3\IdeaProjects\mining_contest_plugin_2025\src\main\java\org\project\mining_contest_plugin_2025\EventListeners\join_version_detect.java

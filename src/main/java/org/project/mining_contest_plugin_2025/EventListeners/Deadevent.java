@@ -99,7 +99,7 @@ public class Deadevent implements Listener {
                         Random random = new Random();
                         Location[] location = new Location[1];
                         World world = Bukkit.getServer().getWorld("world");
-                        location[0] = new Location(world, random.nextInt(-6, 6), 264, random.nextInt(-6, 6));
+                        location[0] = new Location(world, random.nextInt(-4, 4), 264, random.nextInt(-4, 4));
                         location[0].getChunk();
                         p.teleport(location[0]);
                         //String[] SQLDATA = SQLcollection.SQL();

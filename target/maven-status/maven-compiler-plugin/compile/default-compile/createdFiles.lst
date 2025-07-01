@@ -17,6 +17,7 @@ org\project\mining_contest_plugin_2025\EventListeners\sheildblocksound$1.class
 org\project\mining_contest_plugin_2025\EventListeners\lobbyGetPlayerInf$1.class
 org\project\mining_contest_plugin_2025\EventListeners\NoDamage.class
 org\project\mining_contest_plugin_2025\EventListeners\lobbyGetPlayerInf.class
+org\project\mining_contest_plugin_2025\EventListeners\cross_server_send_message.class
 org\project\mining_contest_plugin_2025\EventListeners\join_version_detect.class
 org\project\mining_contest_plugin_2025\EventListeners\axedistance.class
 org\project\mining_contest_plugin_2025\cache\DataObject.class
@@ -27,6 +28,7 @@ org\project\mining_contest_plugin_2025\Mining_contest_plugin_2025.class
 org\project\mining_contest_plugin_2025\SCOREBOARD\queue$1.class
 org\project\mining_contest_plugin_2025\SQL\CreateTable.class
 org\project\mining_contest_plugin_2025\command\add_admin.class
+org\project\mining_contest_plugin_2025\EventListeners\cross_server_receive_message.class
 org\project\mining_contest_plugin_2025\SQL\SQLcollection.class
 org\project\mining_contest_plugin_2025\cache\SimpleGuavaCache.class
 org\project\mining_contest_plugin_2025\command\Looby_paste_command.class
