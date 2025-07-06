@@ -47,6 +47,42 @@ public class flow {
                 all.setScoreboard(board);
             }
         }
+        if (timer == 1800) {
+            Bukkit.broadcastMessage(ChatColor.GREEN + "時間剩餘30分鐘，請各位繼續加油");
+            for (Player all : Bukkit.getServer().getOnlinePlayers()) {
+                all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
+            }
+        }
+        if (timer == 1200) {
+            Bukkit.broadcastMessage(ChatColor.GREEN + "時間剩餘20分鐘，請各位繼續加油");
+            for (Player all : Bukkit.getServer().getOnlinePlayers()) {
+                all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
+            }
+        }
+        if (timer == 600) {
+            Bukkit.broadcastMessage(ChatColor.GREEN + "時間剩餘10分鐘，請各位繼續加油");
+            for (Player all : Bukkit.getServer().getOnlinePlayers()) {
+                all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
+            }
+        }
+        if (timer == 300) {
+            Bukkit.broadcastMessage(ChatColor.GREEN + "時間剩餘5分鐘，請各位繼續加油");
+            for (Player all : Bukkit.getServer().getOnlinePlayers()) {
+                all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
+            }
+        }
+        if (timer == 180) {
+            Bukkit.broadcastMessage(ChatColor.GREEN + "時間剩餘3分鐘，請各位繼續加油");
+            for (Player all : Bukkit.getServer().getOnlinePlayers()) {
+                all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
+            }
+        }
+        if (timer == 60) {
+            Bukkit.broadcastMessage(ChatColor.GREEN + "時間剩餘最後1分鐘，請各位繼續加油");
+            for (Player all : Bukkit.getServer().getOnlinePlayers()) {
+                all.playSound(all.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 20, 1);
+            }
+        }
         if (timer < 10 && timer > 0) {
             for (Player all : Bukkit.getServer().getOnlinePlayers()) {
                 all.sendTitle(ChatColor.GREEN + String.valueOf(timer), "", 4, 20, 4);

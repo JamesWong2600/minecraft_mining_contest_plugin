@@ -207,6 +207,8 @@ public class lobbyGetPlayerInf implements Listener{
                   if(!p.isOp() && !isAdmin) {
                       p.kickPlayer("比賽已經開始");
                       //runnable2.runTaskLater(plugin, 5);
+                  }else if(p.isOp() || isAdmin){
+                      runnable2.runTaskLater(plugin, 5);
                   }
               }
 
@@ -226,6 +228,9 @@ public class lobbyGetPlayerInf implements Listener{
                   if(!p.isOp() && !isAdmin) {
                       p.kickPlayer("比賽已經結束");
                       //runnable2.runTaskLater(plugin, 5);
+                  }
+                  else if(p.isOp() || isAdmin){
+                      runnable2.runTaskLater(plugin, 5);
                   }
               }
               runnable2.runTaskLater(plugin, 5);

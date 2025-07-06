@@ -25,11 +25,7 @@ import org.project.mining_contest_plugin_2025.SQL.SQLcollection;
 import org.project.mining_contest_plugin_2025.SQL.TableExist;
 import static org.project.mining_contest_plugin_2025.TASK.CreateGame.Create;
 import org.project.mining_contest_plugin_2025.TASK.flow;
-import org.project.mining_contest_plugin_2025.command.Looby_paste_command;
-import org.project.mining_contest_plugin_2025.command.add_admin;
-import org.project.mining_contest_plugin_2025.command.disablepvp;
-import org.project.mining_contest_plugin_2025.command.enablepvp;
-import org.project.mining_contest_plugin_2025.command.startCommand;
+import org.project.mining_contest_plugin_2025.command.*;
 
 
 public final class Mining_contest_plugin_2025 extends JavaPlugin {
@@ -72,7 +68,7 @@ public final class Mining_contest_plugin_2025 extends JavaPlugin {
         int webport = this.getConfig().getInt("webport");
         System.out.println(webport);
         try {
-            server = new cross_server_receive_message(webport); // Use any free port
+            server = new cross_server_receive_message(this, webport); // Use any free port
         } catch (IOException e) {
             getLogger().severe("Failed to start NanoHTTPD server: " + e.getMessage());
         }
@@ -90,6 +86,8 @@ public final class Mining_contest_plugin_2025 extends JavaPlugin {
         this.getCommand("enablepvp").setExecutor(new enablepvp(this));
         this.getCommand("paste").setExecutor(new Looby_paste_command(this));
         this.getCommand("addadmin").setExecutor(new add_admin(this));
+        this.getCommand("removeadmin").setExecutor(new remove_admin(this));
+        this.getCommand("listadmin").setExecutor(new list_admin(this));
         runnable1.runTaskTimer(this, 0,20);
         Bukkit.getServer().dispatchCommand(getServer().getConsoleSender(), "paste");
         System.out.println("the lobby has been generated");
@@ -110,7 +108,7 @@ public final class Mining_contest_plugin_2025 extends JavaPlugin {
     String sql = "CREATE TABLE IF NOT EXISTS admin (" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "playername TEXT, " +
-            "player_uuid TEXT" +
+            "player_uuid TEXT UNIQUE" +
             ")";
     try (Statement stmt = connection.createStatement()) {
     stmt.execute(sql);

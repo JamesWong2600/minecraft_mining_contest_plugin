@@ -1,9 +1,6 @@
 package org.project.mining_contest_plugin_2025.EventListeners;
 
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -13,6 +10,7 @@ import org.project.mining_contest_plugin_2025.Mining_contest_plugin_2025;
 import org.project.mining_contest_plugin_2025.SQL.SQLcollection;
 import java.net.InetAddress;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,18 +38,18 @@ public class cross_server_send_message implements Listener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String sql = "SELECT webport FROM playercount";
+        String sql = "SELECT webip, webport FROM playercount";
         try (Connection conn = SQLcollection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int server_amount = rs.getInt("webport");
-                    String urlString = "http://"+ip+":"+server_amount+"/message";
-                    MultipartBody requestBody = new MultipartBody.Builder()
-                            .setType(MultipartBody.FORM)
-                            .addFormDataPart("server", serverid)
-                            .addFormDataPart("message", message)
-                            .addFormDataPart("sender", playerName)
+                    String server_ip = rs.getString("webip");
+                    String urlString = "http://"+server_ip+":"+server_amount+"/message";
+                    RequestBody requestBody = new FormBody.Builder(StandardCharsets.UTF_8)
+                            .add("server", serverid)
+                            .add("message", message)
+                            .add("sender", playerName)
                             .build();
 
                     Request req = new Request.Builder()
@@ -61,7 +59,9 @@ public class cross_server_send_message implements Listener {
 
                     OkHttpClient client = new OkHttpClient();
                     try (Response res = client.newCall(req).execute()) {
-                        System.out.println(res.body().string());
+                        // Ensure response is interpreted as UTF-8
+                        String responseBody = new String(res.body().bytes(), StandardCharsets.UTF_8);
+                        System.out.println(responseBody);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

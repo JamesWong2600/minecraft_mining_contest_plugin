@@ -72,6 +72,7 @@ public class add_admin implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "已成功添加 " + args[0] + " 為管理員");
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                player.sendMessage(ChatColor.RED + "該玩家可能已經是管理員");
             }
         }catch (Exception e) {
             player.sendMessage(ChatColor.RED + "無效的玩家名稱或UUID");

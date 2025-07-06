@@ -53,7 +53,7 @@ public class point implements Listener {
                 int randompoint = random.nextInt(min, max);
                 stmt.setInt(1, 2*randompoint);
                 stmt.setString(2, uid);
-                p.sendMessage(ChatColor.YELLOW + "(暴擊)鑽石+"+2*randompoint+"分");
+                p.sendMessage(ChatColor.YELLOW + "[暴擊]鑽石+"+2*randompoint+"分");
                 stmt.executeUpdate();
                 }
                 else{
@@ -75,7 +75,7 @@ public class point implements Listener {
                 int randompoint = random.nextInt(min, max);
                 stmt.setInt(1, 2*randompoint);
                 stmt.setString(2, uid);
-                p.sendMessage(ChatColor.YELLOW + "(暴擊)鐵礦+"+2*randompoint+"分");
+                p.sendMessage(ChatColor.YELLOW + "[暴擊]鐵礦+"+2*randompoint+"分");
                 stmt.executeUpdate();
                 }else{
                 int min = 3; // 最小值
@@ -95,7 +95,7 @@ public class point implements Listener {
                 int randompoint = random.nextInt(min, max);
                 stmt.setInt(1, 2*randompoint);
                 stmt.setString(2, uid);
-                p.sendMessage(ChatColor.YELLOW + "(暴擊)煤礦+"+2*randompoint+"分");
+                p.sendMessage(ChatColor.YELLOW + "[暴擊]煤礦+"+2*randompoint+"分");
                 stmt.executeUpdate();
                 }else{
                 int min = 0; // 最小值
@@ -115,7 +115,7 @@ public class point implements Listener {
                     int randompoint = random.nextInt(min, max);
                     stmt.setInt(1, 2*randompoint);
                     stmt.setString(2, uid);
-                    p.sendMessage(ChatColor.YELLOW + "(暴擊)紅石礦+"+2*randompoint+"分");
+                    p.sendMessage(ChatColor.YELLOW + "[暴擊]紅石礦+"+2*randompoint+"分");
                     stmt.executeUpdate();
                 }else{
                     int min = 4; // 最小值
@@ -135,7 +135,7 @@ public class point implements Listener {
                     int randompoint = random.nextInt(min, max);
                     stmt.setInt(1, 2*randompoint);
                     stmt.setString(2, uid);
-                    p.sendMessage(ChatColor.YELLOW + "(暴擊)黃金礦+"+2*randompoint+"分");
+                    p.sendMessage(ChatColor.YELLOW + "[暴擊]黃金礦+"+2*randompoint+"分");
                     stmt.executeUpdate();
                 }else{
                     int min = 8; // 最小值
@@ -156,7 +156,7 @@ public class point implements Listener {
                     int randompoint = random.nextInt(min, max);
                     stmt.setInt(1, 2*randompoint);
                     stmt.setString(2, uid);
-                    p.sendMessage(ChatColor.YELLOW + "(暴擊)綠寶石礦+"+2*randompoint+"分");
+                    p.sendMessage(ChatColor.YELLOW + "[暴擊]綠寶石礦+"+2*randompoint+"分");
                     stmt.executeUpdate();
                 }else{
                     int min = 150; // 最小值
@@ -179,7 +179,7 @@ public class point implements Listener {
                     int randompoint = random.nextInt(min, max);
                     stmt.setInt(1, 2*randompoint);
                     stmt.setString(2, uid);
-                    p.sendMessage(ChatColor.YELLOW + "(暴擊)銅礦+"+2*randompoint+"分");
+                    p.sendMessage(ChatColor.YELLOW + "[暴擊]銅礦+"+2*randompoint+"分");
                     stmt.executeUpdate();
                 }else{
                     int min = 0; // 最小值
@@ -202,7 +202,7 @@ public class point implements Listener {
                     int randompoint = random.nextInt(min, max);
                     stmt.setInt(1, 2*randompoint);
                     stmt.setString(2, uid);
-                    p.sendMessage(ChatColor.YELLOW + "(暴擊)青金石礦+"+2*randompoint+"分");
+                    p.sendMessage(ChatColor.YELLOW + "[暴擊]青金石礦+"+2*randompoint+"分");
                     stmt.executeUpdate();
                 }else{
                     int min = 6; // 最小值

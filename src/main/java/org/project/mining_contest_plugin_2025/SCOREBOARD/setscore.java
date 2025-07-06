@@ -37,10 +37,10 @@ public class setscore {
 
             String serverid = Mining_contest_plugin_2025.getMain().getConfig().getString("serverid");
             int webport = Mining_contest_plugin_2025.getMain().getConfig().getInt("webport");
-
+            String webip = Mining_contest_plugin_2025.getMain().getConfig().getString("webip");
             String check_sql = """
-                INSERT INTO playercount (id, webport, count)
-                VALUES (?, ?, ?)
+                INSERT INTO playercount (id, webip, webport, count)
+                VALUES (?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE count = ?
             """;
 
@@ -48,9 +48,10 @@ public class setscore {
                  PreparedStatement check_stmt = check_conn.prepareStatement(check_sql)) {
 
                 check_stmt.setString(1, serverid);
-                check_stmt.setInt(2, webport);
-                check_stmt.setInt(3, playercount); // for the update part
-                check_stmt.setInt(4, playercount);
+                check_stmt.setString(2, webip);
+                check_stmt.setInt(3, webport);
+                check_stmt.setInt(4, playercount); // for the update part
+                check_stmt.setInt(5, playercount);
 
                 int affectedRows = check_stmt.executeUpdate();
                 //System.out.println("Upsert complete. Rows affected: " + affectedRows);
@@ -172,10 +173,10 @@ public class setscore {
 
             String serverid = Mining_contest_plugin_2025.getMain().getConfig().getString("serverid");
             int webport = Mining_contest_plugin_2025.getMain().getConfig().getInt("webport");
-
+            String webip = Mining_contest_plugin_2025.getMain().getConfig().getString("webip");
             String check_sql = """
-                INSERT INTO playercount (id, webport, count)
-                VALUES (?, ?, ?)
+                INSERT INTO playercount (id, webip, webport, count)
+                VALUES (?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE count = ?
             """;
 
@@ -183,9 +184,10 @@ public class setscore {
                  PreparedStatement check_stmt = check_conn.prepareStatement(check_sql)) {
 
                 check_stmt.setString(1, serverid);
-                check_stmt.setInt(2, webport);
-                check_stmt.setInt(3, playercount); // for the update part
-                check_stmt.setInt(4, playercount);
+                check_stmt.setString(2, webip);
+                check_stmt.setInt(3, webport);
+                check_stmt.setInt(4, playercount); // for the update part
+                check_stmt.setInt(5, playercount);
 
                 int affectedRows = check_stmt.executeUpdate();
                 //System.out.println("Upsert complete. Rows affected: " + affectedRows);
@@ -276,10 +278,10 @@ public class setscore {
 
         String serverid = Mining_contest_plugin_2025.getMain().getConfig().getString("serverid");
         int webport = Mining_contest_plugin_2025.getMain().getConfig().getInt("webport");
-
+        String webip = Mining_contest_plugin_2025.getMain().getConfig().getString("webip");
         String check_sql = """
-                INSERT INTO playercount (id, webport, count)
-                VALUES (?, ?, ?)
+                INSERT INTO playercount (id, webip, webport, count)
+                VALUES (?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE count = ?
             """;
 
@@ -287,12 +289,13 @@ public class setscore {
              PreparedStatement check_stmt = check_conn.prepareStatement(check_sql)) {
 
             check_stmt.setString(1, serverid);
-            check_stmt.setInt(2, webport);
-            check_stmt.setInt(3, playercount); // for the update part
-            check_stmt.setInt(4, playercount);
+            check_stmt.setString(2, webip);
+            check_stmt.setInt(3, webport);
+            check_stmt.setInt(4, playercount); // for the update part
+            check_stmt.setInt(5, playercount);
 
             int affectedRows = check_stmt.executeUpdate();
-           // System.out.println("Upsert complete. Rows affected: " + affectedRows);
+            //System.out.println("Upsert complete. Rows affected: " + affectedRows);
 
         } catch (SQLException e) {
             e.printStackTrace();

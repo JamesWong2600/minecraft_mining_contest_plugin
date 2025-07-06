@@ -24,6 +24,7 @@ public class CreateTable {
                     " pvpmode INTEGER)";
             String data2 = "CREATE TABLE playercount " +
                       "(id INTEGER PRIMARY KEY, " +
+                      " webip VARCHAR(255), " +
                       " webport INTEGER, " +
                       " count INTEGER)";
             System.out.println("Inserted records into the table...");
